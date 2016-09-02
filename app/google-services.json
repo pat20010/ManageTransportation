@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "34189704762",
+    "firebase_url": "https://managetransportation-378c1.firebaseio.com",
+    "project_id": "managetransportation-378c1",
+    "storage_bucket": "managetransportation-378c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34189704762:android:e492f8b0d9b695bb",
+        "android_client_info": {
+          "package_name": "com.project_develop_team.managetransportation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34189704762-p1tikkrflu9764jmdfnlcikr04m86aj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7zc0lhAyDBh05KEE4dnxvtMh9TbUjZc8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
