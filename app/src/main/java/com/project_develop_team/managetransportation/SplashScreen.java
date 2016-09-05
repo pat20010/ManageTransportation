@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
 
 public class SplashScreen extends AppCompatActivity {
 
-    Handler handler;
+    private Handler handler;
 
-    Runnable runnable;
+    private Runnable runnable;
 
     long delayTime;
 
