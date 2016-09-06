@@ -1,5 +1,6 @@
 package com.project_develop_team.managetransportation;
 
+
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -25,12 +26,10 @@ public class SplashScreen extends AppCompatActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(i);
+                startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                 finish();
             }
         };
-
     }
 
     @Override
