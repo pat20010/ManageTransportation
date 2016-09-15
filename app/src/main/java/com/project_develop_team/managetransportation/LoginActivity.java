@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,6 +14,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.project_develop_team.managetransportation.models.Users;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,9 +30,11 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.passwordEditText)
     EditText passwordEditText;
 
-    protected FirebaseAuth auth;
+    private DatabaseReference database;
+    private FirebaseAuth auth;
 
-    protected ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,47 +42,88 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        database = FirebaseDatabase.getInstance().getReference();
+        auth = FirebaseAuth.getInstance();
+
+    }
+
+    private void signIn() {
+
+        String username = usernameEditText.getText().toString().trim();
+        final String password = passwordEditText.getText().toString().trim();
+
+        if (validateForm(username, password)) {
+            showProgressDialog();
+
+            auth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    hideProgressDialog();
+                    if (task.isSuccessful()) {
+                        onAuthSuccess(task.getResult().getUser());
+                    } else {
+                        Toast.makeText(LoginActivity.this, R.string.user_login_fail, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (auth.getCurrentUser() != null) {
+            onAuthSuccess(auth.getCurrentUser());
+        }
     }
 
     @OnClick(R.id.loginButton)
-    public void login(View v) {
+    public void login() {
+        signIn();
+    }
 
-        auth = FirebaseAuth.getInstance();
+    private void onAuthSuccess(FirebaseUser firebaseUser) {
+        String email = firebaseUser.getEmail();
+        String username = email;
+        if (email != null && email.contains("@")) {
+            username = email.split("@")[0];
+        }
 
-        String username = usernameEditText.getText().toString();
-        final String password = passwordEditText.getText().toString();
+        Users user = new Users(username, email);
+        database.child("users").child(firebaseUser.getUid()).setValue(user);
 
+        startActivity(new Intent(this, MainTabActivity.class));
+        finish();
+
+    }
+
+    public void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Loading. . .");
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+    private boolean validateForm(String username, String password) {
         if (TextUtils.isEmpty(username)) {
-            Toast.makeText(this, R.string.enter_username, Toast.LENGTH_SHORT).show();
-            return;
+            usernameEditText.setError(getString(R.string.enter_username));
+            return false;
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, R.string.enter_password, Toast.LENGTH_SHORT).show();
-            return;
+            passwordEditText.setError(getString(R.string.enter_password));
+            return false;
+        } else {
+            usernameEditText.setError(null);
+            passwordEditText.setError(null);
         }
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
-        auth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                if (task.isSuccessful()) {
-
-                                    startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
-                                    finish();
-
-                                } else {
-
-                                    progressDialog.dismiss();
-                                    Toast.makeText(LoginActivity.this, R.string.user_login_fail, Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                );
+        return true;
     }
 }
