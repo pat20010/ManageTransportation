@@ -14,10 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.project_develop_team.managetransportation.models.Users;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     hideProgressDialog();
                     if (task.isSuccessful()) {
-                        onAuthSuccess(task.getResult().getUser());
+                        onAuthSuccess();
                     } else {
                         Toast.makeText(LoginActivity.this, R.string.user_login_fail, Toast.LENGTH_SHORT).show();
                     }
@@ -73,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (auth.getCurrentUser() != null) {
-            onAuthSuccess(auth.getCurrentUser());
+            onAuthSuccess();
         }
     }
 
@@ -82,15 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         signIn();
     }
 
-    private void onAuthSuccess(FirebaseUser firebaseUser) {
-        String email = firebaseUser.getEmail();
-        String username = email;
-        if (email != null && email.contains("@")) {
-            username = email.split("@")[0];
-        }
-
-        Users user = new Users(username, email);
-        database.child("users").child(firebaseUser.getUid()).setValue(user);
+    private void onAuthSuccess() {
 
         startActivity(new Intent(this, MainTabActivity.class));
         finish();
