@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f9f9f9">
+
+        <TextView
+            android:id="@+id/firstNameTextView"
+            style="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            tools:text="admin@admin.com" />
+
+        <TextView
+            android:id="@+id/lastNameTextView"
+            style="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            tools:text="transportation"
+            android:layout_below="@+id/firstNameTextView"
+            android:layout_alignLeft="@+id/firstNameTextView"
+            android:layout_alignStart="@+id/firstNameTextView" />
+
+
+        <TextView
+            android:id="@+id/addressTextView"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textStyle="bold"
+            tools:text="My First Post"
+            android:layout_below="@+id/lastNameTextView"
+            android:layout_alignLeft="@+id/lastNameTextView"
+            android:layout_alignStart="@+id/lastNameTextView" />
+
+        <TextView
+            android:id="@+id/genderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Body"
+            android:layout_below="@+id/addressTextView"
+            android:layout_alignLeft="@+id/addressTextView"
+            android:layout_alignStart="@+id/addressTextView" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
