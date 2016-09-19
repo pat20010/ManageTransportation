@@ -2,16 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context="com.project_develop_team.managetransportation.TaskListFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/datesTaskTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
-        android:text="TaskList Fragment"
-        android:textSize="20sp" />
-
+        android:text="@string/dates_task"
+        android:textSize="15sp" />
 </RelativeLayout>
