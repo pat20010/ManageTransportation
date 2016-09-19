@@ -14,7 +14,10 @@
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="tab_headings">
+        <item>รายการ</item>
+        <item>แผนที่</item>
+        <item>ติดต่อ</item>
+    </string-array>
 
 </resources>
