@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.project_develop_team.managetransportation.models.Users;
+import com.project_develop_team.managetransportation.models.Tasks;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +30,8 @@ public abstract class ListFragment extends Fragment {
     @BindView(R.id.datesTaskTextView)
     TextView datesTaskTextView;
 
-    FirebaseRecyclerAdapter<Users, UsersViewHolder> recyclerAdapter;
-    private DatabaseReference databaseReference;
+    FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
+    private DatabaseReference mDatabase;
     private RecyclerView recyclerView;
 
     public ListFragment() {
@@ -44,10 +44,10 @@ public abstract class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
         ButterKnife.bind(this, view);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.users_list);
-        recyclerView.setHasFixedSize(true);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        recyclerView = (RecyclerView) view.findViewById(R.id.tasks_list);
+        recyclerView.setHasFixedSize(true);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE d MMMM", Locale.getDefault());
         datesTaskTextView.setText(simpleDateFormat.format(new Date()));
@@ -58,18 +58,22 @@ public abstract class ListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        Query usersQuery = getQuery(databaseReference);
-        recyclerAdapter = new FirebaseRecyclerAdapter<Users, UsersViewHolder>(Users.class, R.layout.users_layout,
-                UsersViewHolder.class, usersQuery) {
+        Query tasksQuery = getQuery(mDatabase);
+        recyclerAdapter = new FirebaseRecyclerAdapter<Tasks, TasksViewHolder>(Tasks.class, R.layout.tasks_layout,
+                TasksViewHolder.class, tasksQuery) {
             @Override
-            protected void populateViewHolder(final UsersViewHolder viewHolder, final Users model, final int position) {
-            }
+            protected void populateViewHolder(TasksViewHolder viewHolder, Tasks model, int position) {
+                DatabaseReference tasksRef = getRef(position);
 
+                viewHolder.bindToTasks(model);
+                mDatabase.child("tasks").child(tasksRef.getKey());
+                mDatabase.child("users-tasks").child(model.uid).child(tasksRef.getKey());
+            }
         };
 
         recyclerView.setAdapter(recyclerAdapter);

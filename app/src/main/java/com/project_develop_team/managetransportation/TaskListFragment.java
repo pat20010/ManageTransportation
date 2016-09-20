@@ -11,10 +11,10 @@ public class TaskListFragment extends ListFragment {
     public TaskListFragment() {
     }
 
-
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference;
+
+        return databaseReference.child("users-tasks").child(getUid());
     }
 
 }
