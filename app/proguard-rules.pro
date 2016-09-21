@@ -15,3 +15,11 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# Add this global rule
+
+-keepattributes Signature
+-keepattributes *Annotation*
+
+-keep class com.project_develop_team.managetransportation.** {*;}
+
+-keepclassmembers class com.project_develop_team.managetransportation.models.** {*;}

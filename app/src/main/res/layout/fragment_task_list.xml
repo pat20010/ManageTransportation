@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     tools:context=".MainTabActivity">
 
     <TextView
@@ -11,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:padding="5dp"
         android:text="@string/dates_task"
         android:textSize="15sp" />
 
@@ -18,9 +18,10 @@
         android:id="@+id/tasks_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/datesTaskTextView"
         android:clipToPadding="false"
+        android:padding="1dp"
         android:scrollbars="vertical"
-        tools:listitem="@layout/tasks_layout"
-        android:layout_below="@+id/datesTaskTextView" />
+        tools:listitem="@layout/tasks_layout" />
 
 </RelativeLayout>

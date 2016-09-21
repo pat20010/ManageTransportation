@@ -7,19 +7,27 @@ import android.widget.TextView;
 
 import com.project_develop_team.managetransportation.models.Tasks;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 class TasksViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView nameTextView;
-    private TextView addressTextView;
+    @BindView(R.id.taskNameTextView)
+    TextView taskNameTextView;
+    @BindView(R.id.taskAddressTextView)
+    TextView taskAddressTextView;
+    @BindView(R.id.taskPhoneTextView)
+    TextView taskPhoneTextView;
 
     public TasksViewHolder(View itemView) {
         super(itemView);
-        nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
-        addressTextView = (TextView) itemView.findViewById(R.id.addressTextView);
+        ButterKnife.bind(this, itemView);
     }
-    void bindToTasks(Tasks tasks){
 
-        nameTextView.setText(tasks.taskName);
-        addressTextView.setText(tasks.taskAddress);
+    void bindToTasks(Tasks tasks) {
+
+        taskNameTextView.setText(tasks.taskName);
+        taskAddressTextView.setText(tasks.taskAddress);
+        taskPhoneTextView.setText("โทร" + " " + tasks.taskPhone);
     }
 }
