@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="35dp"
+    android:padding="20dp"
     tools:context="com.project_develop_team.managetransportation.SaveListActivity">
+
+    <ImageView
+        android:id="@+id/accountImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@drawable/ic_action_account" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/accountImageView"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/accountImageView"
+        android:layout_toRightOf="@+id/accountImageView"
+        android:textSize="18sp"
+        tools:text="name" />
+
+    <TextView
+        android:id="@+id/taskNameTextView"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/accountImageView"
+        android:layout_alignStart="@+id/accountImageView"
+        android:layout_below="@+id/accountImageView"
+        android:layout_marginTop="23dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="nameTask" />
+
+    <TextView
+        android:id="@+id/taskAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/taskNameTextView"
+        android:layout_alignStart="@+id/taskNameTextView"
+        android:layout_below="@+id/taskNameTextView"
+        android:layout_marginTop="12dp"
+        tools:text="addressTask" />
+
+    <TextView
+        android:id="@+id/taskPhoneTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/taskAddressTextView"
+        android:layout_alignBottom="@+id/taskAddressTextView"
+        android:layout_toEndOf="@+id/taskNameTextView"
+        android:layout_toRightOf="@+id/taskNameTextView"
+        tools:text="phoneTask" />
+
+    <Button
+        android:id="@+id/saveListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="61dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/save"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 </RelativeLayout>

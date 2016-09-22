@@ -16,6 +16,7 @@
     <string name="dates_task">Dates Task</string>
 
     <string name="save_list">บันทึกรายการจัดส่ง</string>
+    <string name="save">บันทึกรายการ</string>
 
     <string-array name="tab_headings">
         <item>รายการ</item>
