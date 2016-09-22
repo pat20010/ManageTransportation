@@ -1,6 +1,7 @@
 package com.project_develop_team.managetransportation;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -73,9 +74,25 @@ public class TaskListFragment extends Fragment {
                 viewHolder.bindToTasks(model);
                 databaseReference.child("tasks").child(tasksRef.getKey());
                 databaseReference.child("users-tasks").child(model.uid).child(tasksRef.getKey());
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), SaveListActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         };
         recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (recyclerAdapter != null) {
+            recyclerAdapter.cleanup();
+        }
     }
 
     private String getUid() {

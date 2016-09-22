@@ -20,6 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/sign_in">
@@ -27,6 +28,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainTabActivity"
             android:label="@string/app_name"
@@ -35,7 +37,11 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ConfirmActivity"/>
+
+        <activity
+            android:name=".SaveListActivity"
+            android:label="@string/save_list" />
+
     </application>
 
 </manifest>
