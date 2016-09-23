@@ -2,8 +2,6 @@ package com.project_develop_team.managetransportation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +13,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.project_develop_team.managetransportation.models.Tasks;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SaveListActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
+
+    public static final String EXTRA_TASKS_KEY = "tasks-key";
 
     @BindView(R.id.nameTextView)
     TextView nameTextView;
@@ -33,21 +34,19 @@ public class SaveListActivity extends AppCompatActivity {
 
     String tasksKey;
 
-    RecyclerView recyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_list);
+        ButterKnife.bind(this);
 
-        tasksKey = getIntent().getStringExtra("tasks-key");
+        tasksKey = getIntent().getStringExtra(EXTRA_TASKS_KEY);
         if (tasksKey == null) {
-            throw new IllegalArgumentException("Must pass tasks-key");
+            throw new IllegalArgumentException("Must pass EXTRA_TASKS_KEY");
         }
         databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child("tasks").child(tasksKey);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -61,7 +60,7 @@ public class SaveListActivity extends AppCompatActivity {
                 nameTextView.setText(tasks.name);
                 taskNameTextView.setText(tasks.taskName);
                 taskAddressTextView.setText(tasks.taskAddress);
-                taskPhoneTextView.setText(tasks.taskPhone);
+                taskPhoneTextView.setText("โทร" + " " + tasks.taskPhone);
             }
 
             @Override

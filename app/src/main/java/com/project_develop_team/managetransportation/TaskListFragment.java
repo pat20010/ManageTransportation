@@ -75,10 +75,12 @@ public class TaskListFragment extends Fragment {
                 databaseReference.child("tasks").child(tasksRef.getKey());
                 databaseReference.child("users-tasks").child(model.uid).child(tasksRef.getKey());
 
+                final String tasksKey = tasksRef.getKey();
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getActivity(), SaveListActivity.class);
+                        intent.putExtra(SaveListActivity.EXTRA_TASKS_KEY, tasksKey);
                         startActivity(intent);
                     }
                 });
