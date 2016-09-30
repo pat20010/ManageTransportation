@@ -14,6 +14,8 @@
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
 
+    <string name="location_fail">ไม่สามารถเชื่อมต่อตำแหน่งที่อยู่ได้    โปรดตรวจสอบการเปิดใช้งานตำแหน่ง</string>
+
     <string-array name="tab_headings">
         <item>รายการ</item>
         <item>แผนที่</item>
