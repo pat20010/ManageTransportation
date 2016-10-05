@@ -14,7 +14,10 @@
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
 
-    <string name="location_fail">ไม่สามารถเชื่อมต่อตำแหน่งที่อยู่ได้    โปรดตรวจสอบการเปิดใช้งานตำแหน่ง</string>
+    <string name="no_google_play">ไม่ได้ติดตั้ง Google Play</string>
+    <string name="not_connect_google_play">การเชื่อมต่อ Google Play ล้มเหลว</string>
+    <string name="server_key">AIzaSyDK9lA1T5JogUKexBmbv0oP5fpKd3t5m84</string>
+    <string name="location_fail">ไม่สามารถเชื่อมต่อตำแหน่งที่อยู่ได้ โปรดตรวจสอบการเปิดใช้งานตำแหน่ง</string>
 
     <string-array name="tab_headings">
         <item>รายการ</item>
