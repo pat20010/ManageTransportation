@@ -8,16 +8,19 @@ public class Tasks {
     public String taskName;
     public String taskAddress;
     public String taskPhone;
+    public double latitude;
+    public double longitude;
 
     public Tasks() {
     }
 
-    public Tasks(String uid, String name, String taskName, String taskAddress, String taskPhone) {
+    public Tasks(String uid, String name, String taskName, String taskAddress, String taskPhone, double latitude, double longitude) {
         this.uid = uid;
         this.name = name;
         this.taskName = taskName;
         this.taskAddress = taskAddress;
         this.taskPhone = taskPhone;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
-
 }
