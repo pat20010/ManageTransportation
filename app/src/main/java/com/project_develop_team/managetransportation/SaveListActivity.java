@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +31,7 @@ public class SaveListActivity extends AppCompatActivity {
     @BindView(R.id.taskPhoneTextView)
     TextView taskPhoneTextView;
 
-    private ValueEventListener mEventListener;
+    private ValueEventListener eventListener;
 
     String tasksKey;
 
@@ -40,20 +41,21 @@ public class SaveListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_save_list);
         ButterKnife.bind(this);
 
+        String getUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         tasksKey = getIntent().getStringExtra(EXTRA_TASKS_KEY);
         if (tasksKey == null) {
             throw new IllegalArgumentException("Must pass EXTRA_TASKS_KEY");
         }
         databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("tasks").child(tasksKey);
-
+                .child("users-tasks").child(getUid).child(tasksKey);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        ValueEventListener eventListener = new ValueEventListener() {
+        eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tasks tasks = dataSnapshot.getValue(Tasks.class);
@@ -69,15 +71,13 @@ public class SaveListActivity extends AppCompatActivity {
             }
         };
         databaseReference.addValueEventListener(eventListener);
-
-        mEventListener = eventListener;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mEventListener != null) {
-            databaseReference.removeEventListener(mEventListener);
+        if (eventListener != null) {
+            databaseReference.removeEventListener(eventListener);
         }
     }
 }

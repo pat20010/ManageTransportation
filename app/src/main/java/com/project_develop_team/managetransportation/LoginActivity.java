@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
 
         rememberUsername();
         auth = FirebaseAuth.getInstance();
-
     }
 
     @OnClick(R.id.loginButton)
@@ -83,13 +82,12 @@ public class LoginActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, MainTabActivity.class));
         finish();
-
     }
 
     public void showProgressDialog() {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Loading. . .");
+            progressDialog.setMessage(getString(R.string.loading));
             progressDialog.setCancelable(false);
         }
         progressDialog.show();

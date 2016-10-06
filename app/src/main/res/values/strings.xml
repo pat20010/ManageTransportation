@@ -13,6 +13,7 @@
     <string name="internet_connect_fail">ไม่สามารถเข้าสู่ระบบ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ</string>
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
+    <string name="loading">กรุณารอสักครู่. . .</string>
     <string name="dates_task">Dates Task</string>
 
     <string name="save_list">บันทึกรายการจัดส่ง</string>
