@@ -2,6 +2,7 @@ package com.project_develop_team.managetransportation;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -80,6 +81,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private Snackbar snackbar;
 
+    private ProgressDialog progressDialog;
+
     public MapFragment() {
 
     }
@@ -102,6 +105,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+        snackbar.dismiss();
     }
 
     @Override
@@ -211,6 +215,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onConnected(Bundle bundle) {
 
+        showProgressDialog();
+
         final Handler handler = new Handler();
 
         Runnable runnable = new Runnable() {
@@ -246,6 +252,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 } else {
                     snackbar.show();
                 }
+                hideProgressDialog();
             }
         };
         handler.postDelayed(runnable, 2000);
@@ -285,5 +292,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             }
         });
+    }
+
+    public void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage(getString(R.string.loading));
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }
