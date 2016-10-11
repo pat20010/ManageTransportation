@@ -65,15 +65,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private LocationRequest locationRequest;
+    private LocationAvailability locationAvailability;
 
     private DatabaseReference databaseReference;
 
     private GoogleMap mMap;
 
     private GoogleApiClient mGoogleApiClient;
-
-    Location mLocation;
 
     private Marker marker;
 
@@ -175,9 +173,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                                             polyline.remove();
                                         }
                                         marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title("You are here")
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_pink)));
+                                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
                                         mMap.addMarker(new MarkerOptions().position(destination).title(tasks.taskName)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_azure)));
+                                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                                         ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
                                         polyline = mMap.addPolyline(DirectionConverter.createPolyline(getActivity(), directionPositionList, 5, Color.RED));
@@ -201,7 +199,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     @Override
     public void onLocationChanged(Location location) {
-        mLocation = location;
 
         handleRouteLocation(location);
     }
@@ -215,47 +212,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onConnected(Bundle bundle) {
 
-        showProgressDialog();
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
 
-        final Handler handler = new Handler();
+        locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
+        mMap.setMyLocationEnabled(true);
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        if (!locationAvailability.isLocationAvailable()) {
+            progressDialog.show();
 
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    return;
+            final Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    requestLocationAvailability();
+
+                    progressDialog.dismiss();
                 }
-
-                mMap.setMyLocationEnabled(true);
-                Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                snackbar = Snackbar.make(getView(), R.string.location_fail, Snackbar.LENGTH_INDEFINITE)
-                        .setAction("ตกลง", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                            }
-                        });
-                snackbar.dismiss();
-
-                LocationAvailability locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
-                if (locationAvailability.isLocationAvailable()) {
-                    locationRequest = new LocationRequest()
-                            .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                            .setInterval(5000)
-                            .setFastestInterval(2000);
-                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, MapFragment.this);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14));
-                    handler.removeCallbacks(this);
-                    loadMarker();
-                } else {
-                    snackbar.show();
-                }
-                hideProgressDialog();
-            }
-        };
-        handler.postDelayed(runnable, 2000);
+            };
+            handler.postDelayed(runnable, 2000);
+        } else {
+            requestLocationAvailability();
+        }
     }
 
     @Override
@@ -283,7 +266,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 for (DataSnapshot pointsSnapshot : dataSnapshots) {
                     Tasks tasks = pointsSnapshot.getValue(Tasks.class);
                     mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.latitude, tasks.longitude)).title(tasks.taskName)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_azure)));
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
                 }
             }
 
@@ -294,18 +277,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         });
     }
 
-    public void showProgressDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setMessage(getString(R.string.loading));
-            progressDialog.setCancelable(false);
+    public void requestLocationAvailability() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
-        progressDialog.show();
-    }
+        snackbar = Snackbar.make(getView(), R.string.location_fail, Snackbar.LENGTH_INDEFINITE)
+                .setAction("ตกลง", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                });
 
-    public void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
+        locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
+        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (locationAvailability.isLocationAvailable()) {
+            LocationRequest locationRequest = new LocationRequest()
+                    .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                    .setInterval(5000)
+                    .setFastestInterval(2000);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 14));
+            loadMarker();
+            snackbar.dismiss();
+        } else {
+            snackbar.show();
         }
     }
 }
