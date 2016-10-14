@@ -54,9 +54,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.SphericalUtil;
 import com.project_develop_team.managetransportation.models.Tasks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -80,6 +83,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private Snackbar snackbar;
 
     private ProgressDialog progressDialog;
+
+    private String refKey;
+
+    private double taskDistance;
 
     public MapFragment() {
 
@@ -142,17 +149,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
     }
 
-    private void handleRouteLocation(Location location) {
+    private void handleRouteLocation(final Location location) {
 
         final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         databaseReference.child("users-tasks").child(getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
-                for (DataSnapshot pointsSnapshot : dataSnapshots) {
+                for (final DataSnapshot pointsSnapshot : dataSnapshots) {
                     final Tasks tasks = pointsSnapshot.getValue(Tasks.class);
                     final LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
+
+                    taskDistance = SphericalUtil.computeDistanceBetween(myLatLng, destination);
 
                     GoogleDirection.withServerKey(getString(R.string.server_key))
                             .from(myLatLng)
@@ -198,10 +207,48 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(final Location location) {
+
+        final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         handleRouteLocation(location);
+
+        Handler handler = new Handler();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (location != null) {
+                    databaseReference.child("users-tasks").child(getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Iterable<DataSnapshot> dataSnapshotIterable = dataSnapshot.getChildren();
+                            for (DataSnapshot pointsDataSnapshot : dataSnapshotIterable) {
+                                Tasks tasks = pointsDataSnapshot.getValue(Tasks.class);
+                                final LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
+
+                                refKey = pointsDataSnapshot.getKey();
+
+                                taskDistance = SphericalUtil.computeDistanceBetween(myLatLng, destination);
+
+                                Map<String, Object> updateChildren = new HashMap<>();
+                                updateChildren.put("/users-tasks/" + getUid() + "/" + refKey + "/" + "taskDistance", taskDistance);
+
+                                databaseReference.updateChildren(updateChildren);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        };
+        handler.postDelayed(runnable, 5000);
     }
+
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
@@ -258,13 +305,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     public void loadMarker() {
+
         databaseReference.child("users-tasks").child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
                 mMap.clear();
                 for (DataSnapshot pointsSnapshot : dataSnapshots) {
                     Tasks tasks = pointsSnapshot.getValue(Tasks.class);
+
                     mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.latitude, tasks.longitude)).title(tasks.taskName)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
                 }
@@ -297,7 +347,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             LocationRequest locationRequest = new LocationRequest()
                     .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
                     .setInterval(5000)
-                    .setFastestInterval(2000);
+                    .setFastestInterval(3000);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 14));
             loadMarker();
@@ -305,5 +355,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } else {
             snackbar.show();
         }
+    }
+
+    public double formatDistance(double meters) {
+        if (meters < 1000) {
+            return ((int) meters);
+        } else if (meters < 10000) {
+            return formatDec(meters / 1000f, 3);
+        } else {
+            return ((int) (meters / 1000f));
+        }
+    }
+
+    public double formatDec(double val, int dec) {
+        int factor = (int) Math.pow(10, dec);
+        int front = (int) (val);
+        int back = (int) Math.abs(val * (factor)) % factor;
+
+        return Double.parseDouble(front + "." + back);
     }
 }
