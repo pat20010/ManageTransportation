@@ -49,17 +49,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.maps.android.SphericalUtil;
 import com.project_develop_team.managetransportation.models.Tasks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -84,10 +82,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private ProgressDialog progressDialog;
 
-    private String refKey;
-
-    private double taskDistance;
-
     public MapFragment() {
 
     }
@@ -96,6 +90,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        getContext().startService(new Intent(getContext(), LocationUpdateService.class));
     }
 
     @Override
@@ -111,6 +106,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             mGoogleApiClient.disconnect();
         }
         snackbar.dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().stopService(new Intent(getContext(), LocationUpdateService.class));
     }
 
     @Override
@@ -149,54 +150,69 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
     }
 
-    private void handleRouteLocation(final Location location) {
+    public void handleRouteLocation(final LatLng destination, Location location, final Tasks tasks) {
 
         final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        databaseReference.child("users-tasks").child(getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
+        GoogleDirection.withServerKey(getString(R.string.server_key))
+                .from(myLatLng)
+                .to(destination)
+                .transportMode(TransportMode.DRIVING)
+                .avoid(AvoidType.TOLLS)
+                .avoid(AvoidType.HIGHWAYS)
+                .avoid(AvoidType.FERRIES)
+                .avoid(AvoidType.INDOOR)
+                .language(Language.THAI)
+                .unit(Unit.METRIC)
+                .execute(new DirectionCallback() {
+                    @Override
+                    public void onDirectionSuccess(Direction direction, String rawBody) {
+                        if (direction.isOK()) {
+                            if (marker != null && polyline != null) {
+                                marker.remove();
+                                polyline.remove();
+                            }
+                            marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title("You are here")
+                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
+                            mMap.addMarker(new MarkerOptions().position(destination).title(tasks.taskName)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
+
+                            ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+                            polyline = mMap.addPolyline(DirectionConverter.createPolyline(getActivity(), directionPositionList, 5, Color.RED));
+                        }
+                    }
+
+                    @Override
+                    public void onDirectionFailure(Throwable t) {
+
+                    }
+                });
+    }
+
+    private void retrieveDataTasksLocation(final Location location) {
+
+        databaseReference.child("users-tasks").child(getUid()).orderByChild("taskDistance").limitToFirst(1).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
-                for (final DataSnapshot pointsSnapshot : dataSnapshots) {
-                    final Tasks tasks = pointsSnapshot.getValue(Tasks.class);
-                    final LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
 
-                    taskDistance = SphericalUtil.computeDistanceBetween(myLatLng, destination);
+                handleRouteLocation(destination, location, tasks);
+            }
 
-                    GoogleDirection.withServerKey(getString(R.string.server_key))
-                            .from(myLatLng)
-                            .to(destination)
-                            .transportMode(TransportMode.DRIVING)
-                            .avoid(AvoidType.TOLLS)
-                            .avoid(AvoidType.HIGHWAYS)
-                            .avoid(AvoidType.FERRIES)
-                            .avoid(AvoidType.INDOOR)
-                            .language(Language.THAI)
-                            .unit(Unit.METRIC)
-                            .execute(new DirectionCallback() {
-                                @Override
-                                public void onDirectionSuccess(Direction direction, String rawBody) {
-                                    if (direction.isOK()) {
-                                        if (marker != null && polyline != null) {
-                                            marker.remove();
-                                            polyline.remove();
-                                        }
-                                        marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title("You are here")
-                                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
-                                        mMap.addMarker(new MarkerOptions().position(destination).title(tasks.taskName)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                                        ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-                                        polyline = mMap.addPolyline(DirectionConverter.createPolyline(getActivity(), directionPositionList, 5, Color.RED));
-                                    }
-                                }
+            }
 
-                                @Override
-                                public void onDirectionFailure(Throwable t) {
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                                }
-                            });
-                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -208,47 +224,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     @Override
     public void onLocationChanged(final Location location) {
-
-        final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-        handleRouteLocation(location);
-
-        Handler handler = new Handler();
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (location != null) {
-                    databaseReference.child("users-tasks").child(getUid()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Iterable<DataSnapshot> dataSnapshotIterable = dataSnapshot.getChildren();
-                            for (DataSnapshot pointsDataSnapshot : dataSnapshotIterable) {
-                                Tasks tasks = pointsDataSnapshot.getValue(Tasks.class);
-                                final LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
-
-                                refKey = pointsDataSnapshot.getKey();
-
-                                taskDistance = SphericalUtil.computeDistanceBetween(myLatLng, destination);
-
-                                Map<String, Object> updateChildren = new HashMap<>();
-                                updateChildren.put("/users-tasks/" + getUid() + "/" + refKey + "/" + "taskDistance", taskDistance);
-
-                                databaseReference.updateChildren(updateChildren);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-        };
-        handler.postDelayed(runnable, 5000);
+        retrieveDataTasksLocation(location);
     }
-
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
@@ -346,8 +323,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         if (locationAvailability.isLocationAvailable()) {
             LocationRequest locationRequest = new LocationRequest()
                     .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                    .setInterval(5000)
-                    .setFastestInterval(3000);
+                    .setSmallestDisplacement(10)
+                    .setInterval(30000);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 14));
             loadMarker();
