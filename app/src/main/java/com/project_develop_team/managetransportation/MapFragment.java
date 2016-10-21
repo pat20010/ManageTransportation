@@ -49,6 +49,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -89,6 +90,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        getContext().startService(new Intent(getContext(), LocationUpdateService.class));
     }
 
     @Override
@@ -104,6 +106,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             mGoogleApiClient.disconnect();
         }
         snackbar.dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().stopService(new Intent(getContext(), LocationUpdateService.class));
     }
 
     @Override
@@ -142,52 +150,72 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
     }
 
-    private void handleRouteLocation(Location location) {
+    public void handleRouteLocation(final LatLng destination, Location location, final Tasks tasks) {
 
         final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        databaseReference.child("users-tasks").child(getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
+        GoogleDirection.withServerKey(getString(R.string.server_key))
+                .from(myLatLng)
+                .to(destination)
+                .transportMode(TransportMode.DRIVING)
+                .avoid(AvoidType.TOLLS)
+                .avoid(AvoidType.HIGHWAYS)
+                .avoid(AvoidType.FERRIES)
+                .avoid(AvoidType.INDOOR)
+                .language(Language.THAI)
+                .unit(Unit.METRIC)
+                .execute(new DirectionCallback() {
+                    @Override
+                    public void onDirectionSuccess(Direction direction, String rawBody) {
+                        if (direction.isOK()) {
+                            if (marker != null && polyline != null) {
+                                marker.remove();
+                                polyline.remove();
+                            }
+                            marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title(getString(R.string.you_are_here))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
+                            mMap.addMarker(new MarkerOptions().position(destination).title(tasks.taskName)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
+
+                            ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+                            polyline = mMap.addPolyline(DirectionConverter.createPolyline(getActivity(), directionPositionList, 5, Color.RED));
+                        }
+                    }
+
+                    @Override
+                    public void onDirectionFailure(Throwable t) {
+
+                    }
+                });
+    }
+
+    private void retrieveDataTasksLocation(final Location location) {
+
+        databaseReference.child("users-tasks").child(getUid()).orderByChild("taskDistance").limitToFirst(1).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
-                for (DataSnapshot pointsSnapshot : dataSnapshots) {
-                    final Tasks tasks = pointsSnapshot.getValue(Tasks.class);
-                    final LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
 
-                    GoogleDirection.withServerKey(getString(R.string.server_key))
-                            .from(myLatLng)
-                            .to(destination)
-                            .transportMode(TransportMode.DRIVING)
-                            .avoid(AvoidType.TOLLS)
-                            .avoid(AvoidType.HIGHWAYS)
-                            .avoid(AvoidType.FERRIES)
-                            .avoid(AvoidType.INDOOR)
-                            .language(Language.THAI)
-                            .unit(Unit.METRIC)
-                            .execute(new DirectionCallback() {
-                                @Override
-                                public void onDirectionSuccess(Direction direction, String rawBody) {
-                                    if (direction.isOK()) {
-                                        if (marker != null && polyline != null) {
-                                            marker.remove();
-                                            polyline.remove();
-                                        }
-                                        marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title("You are here")
-                                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
-                                        mMap.addMarker(new MarkerOptions().position(destination).title(tasks.taskName)
-                                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
+                handleRouteLocation(destination, location, tasks);
+            }
 
-                                        ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-                                        polyline = mMap.addPolyline(DirectionConverter.createPolyline(getActivity(), directionPositionList, 5, Color.RED));
-                                    }
-                                }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
 
-                                @Override
-                                public void onDirectionFailure(Throwable t) {
+                handleRouteLocation(destination, location, tasks);
+            }
 
-                                }
-                            });
-                }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -198,9 +226,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-
-        handleRouteLocation(location);
+    public void onLocationChanged(final Location location) {
+        retrieveDataTasksLocation(location);
     }
 
     @Override
@@ -258,13 +285,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     public void loadMarker() {
+
         databaseReference.child("users-tasks").child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
                 mMap.clear();
                 for (DataSnapshot pointsSnapshot : dataSnapshots) {
                     Tasks tasks = pointsSnapshot.getValue(Tasks.class);
+
                     mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.latitude, tasks.longitude)).title(tasks.taskName)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
                 }
@@ -296,8 +326,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         if (locationAvailability.isLocationAvailable()) {
             LocationRequest locationRequest = new LocationRequest()
                     .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                    .setInterval(5000)
-                    .setFastestInterval(2000);
+                    .setSmallestDisplacement(5)
+                    .setInterval(60000);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 14));
             loadMarker();
@@ -305,5 +335,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } else {
             snackbar.show();
         }
+    }
+
+    public double formatDistance(double meters) {
+        if (meters < 1000) {
+            return ((int) meters);
+        } else if (meters < 10000) {
+            return formatDec(meters / 1000f, 3);
+        } else {
+            return ((int) (meters / 1000f));
+        }
+    }
+
+    public double formatDec(double val, int dec) {
+        int factor = (int) Math.pow(10, dec);
+        int front = (int) (val);
+        int back = (int) Math.abs(val * (factor)) % factor;
+
+        return Double.parseDouble(front + "." + back);
     }
 }
