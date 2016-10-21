@@ -313,7 +313,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             return;
         }
         snackbar = Snackbar.make(getView(), R.string.location_fail, Snackbar.LENGTH_INDEFINITE)
-                .setAction("ตกลง", new View.OnClickListener() {
+                .setAction(R.string.ok, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));

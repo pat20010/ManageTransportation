@@ -7,29 +7,34 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
 
-    <string name="enter_username">กรุณาป้อนชื่อผู้ใช้!</string>
-    <string name="enter_password">กรุณาป้อนรหัสผ่าน!</string>
-    <string name="user_login_fail">ชื่อผู้ใช้หรือรหัสผ่านที่คุณป้อนไม่ถูกต้อง โปรดลองใหม่</string>
-    <string name="internet_connect_fail">ไม่สามารถเข้าสู่ระบบ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ</string>
-    <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
-    <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
-    <string name="loading">กรุณารอสักครู่. . .</string>
-    <string name="dates_task">Dates Task</string>
+    <string name="enter_username">Enter username please!</string>
+    <string name="enter_password">Enter password please!</string>
+    <string name="user_login_fail">The username or password you entered is incorrect. Try again please.</string>
+    <string name="internet_connect_fail">Unable to login Please check your Internet connection.</string>
+    <string name="login_incorrect">Login incorrect!</string>
+    <string name="login_fail">Login failure!</string>
+    <string name="loading">Loading. . .</string>
+    <string name="dates_task" translatable="false">Dates Task</string>
+    <string name="call">Call</string>
 
-    <string name="save_list">บันทึกรายการจัดส่ง</string>
-    <string name="save">บันทึกรายการ</string>
+    <string name="save_list">SaveList</string>
+    <string name="save">Save</string>
+    <string name="ok">OK</string>
 
-    <string name="no_google_play">ไม่ได้ติดตั้ง Google Play</string>
-    <string name="not_connect_google_play">การเชื่อมต่อ Google Play ล้มเหลว</string>
-    <string name="server_key">AIzaSyDK9lA1T5JogUKexBmbv0oP5fpKd3t5m84</string>
-    <string name="location_fail">ไม่สามารถเชื่อมต่อตำแหน่งที่อยู่ได้ โปรดตรวจสอบการเปิดใช้งานตำแหน่ง</string>
-    <string name="you_are_here">คุณอยู่ที่นี้</string>
+    <string name="no_google_play">Not installed Google Play!</string>
+    <string name="not_connect_google_play">Connection Google Play fail!</string>
+    <string name="server_key" translatable="false">AIzaSyDK9lA1T5JogUKexBmbv0oP5fpKd3t5m84</string>
+    <string name="location_fail">Can not connect to the Location. Check the Enable Location.</string>
+    <string name="you_are_here">You are here</string>
 
     <string-array name="tab_headings">
-        <item>รายการ</item>
-        <item>แผนที่</item>
-        <item>ติดต่อ</item>
+        <item>List</item>
+        <item>Map</item>
+        <item>Contact</item>
     </string-array>
-    <string name="title_activity_maps">Map</string>
-
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="contact_fragment" translatable="false">Contact Fragment</string>
+    <string name="address" translatable="false">address</string>
+    <string name="phone" translatable="false">phone</string>
+    <string name="loading_list_fail">Loading list failed!</string>
 </resources>

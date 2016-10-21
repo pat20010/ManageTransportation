@@ -14,7 +14,9 @@ import android.support.v4.app.ActivityCompat;
 import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.constant.AvoidType;
+import com.akexorcist.googledirection.constant.Language;
 import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.constant.Unit;
 import com.akexorcist.googledirection.model.Direction;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,14 +33,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.maps.android.SphericalUtil;
 import com.project_develop_team.managetransportation.models.Tasks;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class LocationUpdateService extends Service implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    public static Boolean mRequestingLocationUpdates;
+    public static Boolean requestingLocationUpdates;
 
     private DatabaseReference databaseReference;
 
@@ -56,9 +55,9 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mRequestingLocationUpdates = false;
+        requestingLocationUpdates = false;
         buildGoogleApiClient();
-        if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
+        if (mGoogleApiClient.isConnected() && requestingLocationUpdates) {
             startLocationUpdates();
         }
         return Service.START_REDELIVER_INTENT;
@@ -89,8 +88,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     }
 
     public void startLocationUpdates() {
-        if (!mRequestingLocationUpdates) {
-            mRequestingLocationUpdates = true;
+        if (!requestingLocationUpdates) {
+            requestingLocationUpdates = true;
 
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -102,8 +101,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     }
 
     public void stopLocationUpdates() {
-        if (mRequestingLocationUpdates) {
-            mRequestingLocationUpdates = false;
+        if (requestingLocationUpdates) {
+            requestingLocationUpdates = false;
 
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
@@ -152,6 +151,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
                         .avoid(AvoidType.HIGHWAYS)
                         .avoid(AvoidType.FERRIES)
                         .avoid(AvoidType.INDOOR)
+                        .unit(Unit.METRIC)
                         .execute(new DirectionCallback() {
                             @Override
                             public void onDirectionSuccess(Direction direction, String rawBody) {

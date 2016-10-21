@@ -1,8 +1,6 @@
 package com.project_develop_team.managetransportation.models;
 
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Tasks {
 
@@ -30,19 +28,5 @@ public class Tasks {
     }
 
     public Tasks(double taskDistance) {
-    }
-
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-        result.put("name", name);
-        result.put("taskName", taskName);
-        result.put("taskAddress", taskAddress);
-        result.put("taskPhone", taskPhone);
-        result.put("latitude", latitude);
-        result.put("longitude", longitude);
-        result.put("taskDistance", taskDistance);
-
-        return result;
     }
 }

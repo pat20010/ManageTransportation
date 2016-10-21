@@ -21,14 +21,15 @@ public class SaveListActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     public static final String EXTRA_TASKS_KEY = "tasks-key";
+    private static final String MUST_PASS = "Must pass EXTRA_TASKS_KEY";
 
-    @BindView(R.id.nameTextView)
+    @BindView(R.id.name_text_view)
     TextView nameTextView;
-    @BindView(R.id.taskNameTextView)
+    @BindView(R.id.task_name_text_view)
     TextView taskNameTextView;
-    @BindView(R.id.taskAddressTextView)
+    @BindView(R.id.task_address_text_view)
     TextView taskAddressTextView;
-    @BindView(R.id.taskPhoneTextView)
+    @BindView(R.id.task_phone_text_view)
     TextView taskPhoneTextView;
 
     private ValueEventListener eventListener;
@@ -45,7 +46,7 @@ public class SaveListActivity extends AppCompatActivity {
 
         tasksKey = getIntent().getStringExtra(EXTRA_TASKS_KEY);
         if (tasksKey == null) {
-            throw new IllegalArgumentException("Must pass EXTRA_TASKS_KEY");
+            throw new IllegalArgumentException(MUST_PASS);
         }
         databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child("users-tasks").child(getUid).child(tasksKey);
@@ -62,12 +63,12 @@ public class SaveListActivity extends AppCompatActivity {
                 nameTextView.setText(tasks.name);
                 taskNameTextView.setText(tasks.taskName);
                 taskAddressTextView.setText(tasks.taskAddress);
-                taskPhoneTextView.setText("โทร" + " " + tasks.taskPhone);
+                taskPhoneTextView.setText(getString(R.string.call) + " " + tasks.taskPhone);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Fail load task", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.loading_list_fail, Toast.LENGTH_SHORT).show();
             }
         };
         databaseReference.addValueEventListener(eventListener);

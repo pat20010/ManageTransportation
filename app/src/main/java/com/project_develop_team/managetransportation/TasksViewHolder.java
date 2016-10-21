@@ -10,14 +10,21 @@ import com.project_develop_team.managetransportation.models.Tasks;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 class TasksViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.taskNameTextView)
+    @BindView(R.id.task_name_text_view)
     TextView taskNameTextView;
-    @BindView(R.id.taskAddressTextView)
+    @BindView(R.id.task_address_text_view)
     TextView taskAddressTextView;
-    @BindView(R.id.taskPhoneTextView)
+    @BindView(R.id.task_phone_text_view)
     TextView taskPhoneTextView;
+
+    @Override
+    public String toString() {
+        return super.toString();
+
+    }
 
     public TasksViewHolder(View itemView) {
         super(itemView);
@@ -30,4 +37,5 @@ class TasksViewHolder extends RecyclerView.ViewHolder {
         taskAddressTextView.setText(tasks.taskAddress);
         taskPhoneTextView.setText("โทร" + " " + tasks.taskPhone);
     }
+
 }

@@ -8,7 +8,7 @@
     tools:context="com.project_develop_team.managetransportation.SaveListActivity">
 
     <Button
-        android:id="@+id/saveListButton"
+        android:id="@+id/save_list_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -23,7 +23,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/taskNameTextView"
+        android:id="@+id/task_name_text_view"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,23 +31,23 @@
         android:textSize="17sp"
         android:textStyle="bold"
         tools:text="nameTask"
-        android:layout_below="@+id/accountImageView"
+        android:layout_below="@+id/account_image_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:id="@+id/taskAddressTextView"
+        android:id="@+id/task_address_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="addressTask"
         android:textSize="14sp"
-        android:layout_below="@+id/taskNameTextView"
+        android:layout_below="@+id/task_name_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp" />
 
     <ImageView
-        android:id="@+id/accountImageView"
+        android:id="@+id/account_image_view"
         android:contentDescription="@string/app_name"
         app:srcCompat="@drawable/ic_action_account"
         android:layout_alignParentTop="true"
@@ -60,7 +60,7 @@
         android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -68,16 +68,16 @@
         android:textSize="18sp"
         tools:text="name"
         android:layout_marginBottom="23dp"
-        android:layout_alignBottom="@+id/accountImageView"
-        android:layout_toRightOf="@+id/accountImageView"
-        android:layout_toEndOf="@+id/accountImageView" />
+        android:layout_alignBottom="@+id/account_image_view"
+        android:layout_toRightOf="@+id/account_image_view"
+        android:layout_toEndOf="@+id/account_image_view" />
 
     <TextView
-        android:id="@+id/taskPhoneTextView"
+        android:id="@+id/task_phone_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="phoneTask"
-        android:layout_below="@+id/taskAddressTextView"
+        android:layout_below="@+id/task_address_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

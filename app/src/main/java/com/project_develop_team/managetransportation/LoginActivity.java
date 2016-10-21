@@ -27,7 +27,10 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.usernameEditText)
+    private final String USER_NAME = "UserName";
+    private static final String SHARED_PREFERENCES = "sharedPreferences";
+
+    @BindView(R.id.username_edit_text)
     EditText usernameEditText;
     @BindView(R.id.password_edit_text)
     EditText passwordEditText;
@@ -123,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             builder.setTitle(R.string.login_incorrect);
             builder.setMessage(R.string.user_login_fail);
         }
-        builder.setPositiveButton("ตกลง", null);
+        builder.setPositiveButton(R.string.ok, null);
         builder.show();
     }
 
@@ -135,9 +138,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void rememberUsername() {
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
-        usernameEditText.setText(sharedPreferences.getString("UserName", ""));
+        usernameEditText.setText(sharedPreferences.getString(USER_NAME, ""));
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -149,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                editor.putString("UserName", s.toString());
+                editor.putString(USER_NAME, s.toString());
                 editor.apply();
             }
         });

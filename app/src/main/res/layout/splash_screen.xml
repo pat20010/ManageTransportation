@@ -11,7 +11,7 @@
     tools:context="com.project_develop_team.managetransportation.SplashScreen">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo_image_view"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"

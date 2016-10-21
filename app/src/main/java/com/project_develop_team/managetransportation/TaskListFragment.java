@@ -28,11 +28,13 @@ import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
 
-    @BindView(R.id.datesTaskTextView)
+    @BindView(R.id.dates_task_text_view)
     TextView datesTaskTextView;
 
-    FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
+    private FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
+
     private DatabaseReference databaseReference;
+
     private RecyclerView recyclerView;
 
     public TaskListFragment() {
@@ -60,7 +62,7 @@ public class TaskListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setReverseLayout(true);
+        layoutManager.setReverseLayout(false);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -102,6 +104,6 @@ public class TaskListFragment extends Fragment {
     }
 
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child("users-tasks").child(getUid());
+        return databaseReference.child("users-tasks").child(getUid()).orderByChild("taskDistance");
     }
 }
