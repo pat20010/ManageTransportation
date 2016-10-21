@@ -172,7 +172,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                                 marker.remove();
                                 polyline.remove();
                             }
-                            marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title("You are here")
+                            marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title(getString(R.string.you_are_here))
                                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
                             mMap.addMarker(new MarkerOptions().position(destination).title(tasks.taskName)
                                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
@@ -202,7 +202,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
 
+                handleRouteLocation(destination, location, tasks);
             }
 
             @Override
@@ -323,8 +326,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         if (locationAvailability.isLocationAvailable()) {
             LocationRequest locationRequest = new LocationRequest()
                     .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                    .setSmallestDisplacement(10)
-                    .setInterval(30000);
+                    .setSmallestDisplacement(5)
+                    .setInterval(60000);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 14));
             loadMarker();

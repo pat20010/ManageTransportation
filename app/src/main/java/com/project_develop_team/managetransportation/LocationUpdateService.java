@@ -84,8 +84,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         mGoogleApiClient.connect();
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                .setSmallestDisplacement(5)
-                .setInterval(30000);
+                .setSmallestDisplacement(10)
+                .setInterval(60000);
     }
 
     public void startLocationUpdates() {
@@ -133,13 +133,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     @Override
     public void onLocationChanged(final Location location) {
         final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        DatabaseReference referenceUsers = databaseReference.child("users").child(getUid());
-
-        Map<String, Object> updateChild = new HashMap<>();
-        updateChild.put(referenceUsers + "latitude", location.getLatitude());
-        updateChild.put(referenceUsers + "longitude", location.getLongitude());
-
-        databaseReference.updateChildren(updateChild);
+        databaseReference.child("users").child(getUid()).child("latitude").setValue(location.getLatitude());
+        databaseReference.child("users").child(getUid()).child("longitude").setValue(location.getLongitude());
 
         databaseReference.child("users-tasks").child(getUid()).addChildEventListener(new ChildEventListener() {
             @Override
