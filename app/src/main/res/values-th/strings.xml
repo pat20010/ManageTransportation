@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ManageTransportation</string>
+    <string name="meter">\u00A0เมตร</string>
+    <string name="kilometer">\u00A0กม.</string>
+    <string name="distance_task">ระยะทาง</string>
 </resources>

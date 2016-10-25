@@ -20,6 +20,8 @@
     <string name="server_key">AIzaSyDK9lA1T5JogUKexBmbv0oP5fpKd3t5m84</string>
     <string name="location_fail">ไม่สามารถเชื่อมต่อตำแหน่งที่อยู่ได้ โปรดตรวจสอบการเปิดใช้งานตำแหน่ง</string>
     <string name="you_are_here">คุณอยู่ที่นี้</string>
+    <string name="meter">\u00A0m</string>
+    <string name="kilometer">\u00A0km</string>
 
     <string-array name="tab_headings">
         <item>รายการ</item>
@@ -27,5 +29,7 @@
         <item>ติดต่อ</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="distance_task">Distance</string>
+    <string name="dot" translatable="false">.</string>
 
 </resources>

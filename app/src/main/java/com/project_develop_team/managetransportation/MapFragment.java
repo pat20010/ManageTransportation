@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -55,10 +56,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.SphericalUtil;
 import com.project_develop_team.managetransportation.models.Tasks;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -81,6 +84,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private Snackbar snackbar;
 
     private ProgressDialog progressDialog;
+
+    @BindView(R.id.task_distance)
+    TextView taskDistanceTextView;
 
     public MapFragment() {
 
@@ -154,6 +160,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
+        final double taskDistance = SphericalUtil.computeDistanceBetween(myLatLng, destination);
+
         GoogleDirection.withServerKey(getString(R.string.server_key))
                 .from(myLatLng)
                 .to(destination)
@@ -179,6 +187,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
                             ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
                             polyline = mMap.addPolyline(DirectionConverter.createPolyline(getActivity(), directionPositionList, 5, Color.RED));
+
+                            taskDistanceTextView.setText(formatDistance(taskDistance));
                         }
                     }
 
@@ -337,21 +347,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
     }
 
-    public double formatDistance(double meters) {
+    public String formatDistance(double meters) {
         if (meters < 1000) {
-            return ((int) meters);
+            return ((int) meters) + getString(R.string.meter);
         } else if (meters < 10000) {
-            return formatDec(meters / 1000f, 3);
+            return formatDec(meters / 1000f, 1) + getString(R.string.kilometer);
         } else {
-            return ((int) (meters / 1000f));
+            return ((int) (meters / 1000f)) + getString(R.string.kilometer);
         }
     }
 
-    public double formatDec(double val, int dec) {
+    public String formatDec(double val, int dec) {
         int factor = (int) Math.pow(10, dec);
         int front = (int) (val);
         int back = (int) Math.abs(val * (factor)) % factor;
 
-        return Double.parseDouble(front + "." + back);
+        return front + getString(R.string.dot) + back;
     }
 }
