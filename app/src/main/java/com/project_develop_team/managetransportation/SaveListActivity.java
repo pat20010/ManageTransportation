@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +15,7 @@ import com.project_develop_team.managetransportation.models.Tasks;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SaveListActivity extends AppCompatActivity {
 
@@ -30,7 +32,7 @@ public class SaveListActivity extends AppCompatActivity {
     @BindView(R.id.taskPhoneTextView)
     TextView taskPhoneTextView;
 
-    private ValueEventListener mEventListener;
+    private ValueEventListener eventListener;
 
     String tasksKey;
 
@@ -44,16 +46,14 @@ public class SaveListActivity extends AppCompatActivity {
         if (tasksKey == null) {
             throw new IllegalArgumentException("Must pass EXTRA_TASKS_KEY");
         }
-        databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("tasks").child(tasksKey);
-
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        ValueEventListener eventListener = new ValueEventListener() {
+        eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tasks tasks = dataSnapshot.getValue(Tasks.class);
@@ -68,16 +68,25 @@ public class SaveListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Fail load task", Toast.LENGTH_SHORT).show();
             }
         };
-        databaseReference.addValueEventListener(eventListener);
-
-        mEventListener = eventListener;
+        databaseReference.child("tasks").child(tasksKey).addValueEventListener(eventListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mEventListener != null) {
-            databaseReference.removeEventListener(mEventListener);
+        if (eventListener != null) {
+            databaseReference.removeEventListener(eventListener);
         }
+    }
+
+    @OnClick(R.id.saveListButton)
+    public void saveList() {
+        databaseReference.child("tasks").child(tasksKey).child("status").setValue("เสร็จเรียบร้อย");
+        databaseReference.child("users-tasks").child(getUid()).child(tasksKey).removeValue();
+        finish();
+    }
+
+    private String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 }
