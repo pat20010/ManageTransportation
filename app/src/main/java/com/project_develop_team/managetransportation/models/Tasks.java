@@ -1,48 +1,31 @@
 package com.project_develop_team.managetransportation.models;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Tasks {
 
     public String uid;
     public String name;
-    public String taskName;
-    public String taskAddress;
-    public String taskPhone;
+    public String task_name;
+    public String task_address;
+    public String task_phone;
     public double latitude;
     public double longitude;
-    public double taskDistance;
+    public double task_distance;
 
     public Tasks() {
     }
 
-    public Tasks(String uid, String name, String taskName, String taskAddress, String taskPhone, double latitude, double longitude, double taskDistance) {
+    public Tasks(String uid, String name, String task_name, String task_address, String task_phone, double latitude, double longitude, double task_distance) {
         this.uid = uid;
         this.name = name;
-        this.taskName = taskName;
-        this.taskAddress = taskAddress;
-        this.taskPhone = taskPhone;
+        this.task_name = task_name;
+        this.task_address = task_address;
+        this.task_phone = task_phone;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.taskDistance = taskDistance;
+        this.task_distance = task_distance;
     }
 
-    public Tasks(double taskDistance) {
-    }
-
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-        result.put("name", name);
-        result.put("taskName", taskName);
-        result.put("taskAddress", taskAddress);
-        result.put("taskPhone", taskPhone);
-        result.put("latitude", latitude);
-        result.put("longitude", longitude);
-        result.put("taskDistance", taskDistance);
-
-        return result;
+    public Tasks(double task_distance) {
     }
 }

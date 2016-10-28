@@ -28,11 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.maps.android.SphericalUtil;
 import com.project_develop_team.managetransportation.models.Tasks;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class LocationUpdateService extends Service implements GoogleApiClient.ConnectionCallbacks,
@@ -133,10 +129,10 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     @Override
     public void onLocationChanged(final Location location) {
         final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        databaseReference.child("users").child(getUid()).child("latitude").setValue(location.getLatitude());
-        databaseReference.child("users").child(getUid()).child("longitude").setValue(location.getLongitude());
+        databaseReference.child(getString(R.string.firebase_users)).child(getUid()).child(getString(R.string.firebase_latitude)).setValue(location.getLatitude());
+        databaseReference.child(getString(R.string.firebase_users)).child(getUid()).child(getString(R.string.firebase_longitude)).setValue(location.getLongitude());
 
-        databaseReference.child("users-tasks").child(getUid()).addChildEventListener(new ChildEventListener() {
+        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Tasks tasks = dataSnapshot.getValue(Tasks.class);
@@ -155,9 +151,11 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
                         .execute(new DirectionCallback() {
                             @Override
                             public void onDirectionSuccess(Direction direction, String rawBody) {
-                                double taskDistance = SphericalUtil.computeDistanceBetween(myLatLng, destination);
+                                for (int i = 0; i < direction.getRouteList().size(); i++) {
+                                    double taskDistance = Double.parseDouble(direction.getRouteList().get(i).getLegList().get(i).getDistance().getValue());
 
-                                databaseReference.child("users-tasks").child(getUid()).child(refKey).child("taskDistance").setValue(taskDistance);
+                                    databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_distance)).setValue(taskDistance);
+                                }
                             }
 
                             @Override

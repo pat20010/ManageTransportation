@@ -56,7 +56,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.maps.android.SphericalUtil;
 import com.project_develop_team.managetransportation.models.Tasks;
 
 import java.util.ArrayList;
@@ -85,8 +84,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private ProgressDialog progressDialog;
 
-    @BindView(R.id.task_distance)
-    TextView taskDistanceTextView;
+    @BindView(R.id.data_distance_text_view)
+    TextView dataDistanceTextView;
+    @BindView(R.id.data_duration_text_view)
+    TextView dataDurationTextView;
+    @BindView(R.id.task_name_text_view)
+    TextView taskNameTextView;
 
     public MapFragment() {
 
@@ -160,8 +163,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        final double taskDistance = SphericalUtil.computeDistanceBetween(myLatLng, destination);
-
         GoogleDirection.withServerKey(getString(R.string.server_key))
                 .from(myLatLng)
                 .to(destination)
@@ -182,13 +183,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                             }
                             marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title(getString(R.string.you_are_here))
                                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
-                            mMap.addMarker(new MarkerOptions().position(destination).title(tasks.taskName)
+                            mMap.addMarker(new MarkerOptions().position(destination).title(tasks.task_name)
                                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                             ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+                            String taskDistance = direction.getRouteList().get(0).getLegList().get(0).getDistance().getText();
+                            String taskDuration = direction.getRouteList().get(0).getLegList().get(0).getDuration().getText();
                             polyline = mMap.addPolyline(DirectionConverter.createPolyline(getActivity(), directionPositionList, 5, Color.RED));
 
-                            taskDistanceTextView.setText(formatDistance(taskDistance));
+                            dataDistanceTextView.setText(taskDistance);
+                            dataDurationTextView.setText(taskDuration);
+                            taskNameTextView.setText(tasks.task_name);
                         }
                     }
 
@@ -201,7 +206,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private void retrieveDataTasksLocation(final Location location) {
 
-        databaseReference.child("users-tasks").child(getUid()).orderByChild("taskDistance").limitToFirst(1).addChildEventListener(new ChildEventListener() {
+        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).orderByChild(getString(R.string.firebase_task_distance)).limitToFirst(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Tasks tasks = dataSnapshot.getValue(Tasks.class);
@@ -296,7 +301,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     public void loadMarker() {
 
-        databaseReference.child("users-tasks").child(getUid()).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -305,7 +310,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 for (DataSnapshot pointsSnapshot : dataSnapshots) {
                     Tasks tasks = pointsSnapshot.getValue(Tasks.class);
 
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.latitude, tasks.longitude)).title(tasks.taskName)
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.latitude, tasks.longitude)).title(tasks.task_name)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
                 }
             }
@@ -323,7 +328,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             return;
         }
         snackbar = Snackbar.make(getView(), R.string.location_fail, Snackbar.LENGTH_INDEFINITE)
-                .setAction("ตกลง", new View.OnClickListener() {
+                .setAction(R.string.ok, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -345,23 +350,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } else {
             snackbar.show();
         }
-    }
-
-    public String formatDistance(double meters) {
-        if (meters < 1000) {
-            return ((int) meters) + getString(R.string.meter);
-        } else if (meters < 10000) {
-            return formatDec(meters / 1000f, 1) + getString(R.string.kilometer);
-        } else {
-            return ((int) (meters / 1000f)) + getString(R.string.kilometer);
-        }
-    }
-
-    public String formatDec(double val, int dec) {
-        int factor = (int) Math.pow(10, dec);
-        int front = (int) (val);
-        int back = (int) Math.abs(val * (factor)) % factor;
-
-        return front + getString(R.string.dot) + back;
     }
 }
