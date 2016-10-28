@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.usernameEditText)
     EditText usernameEditText;
-    @BindView(R.id.passwordEditText)
+    @BindView(R.id.password_edit_text)
     EditText passwordEditText;
 
     private FirebaseAuth auth;
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.loginButton)
+    @OnClick(R.id.login_button)
     public void login() {
 
         final String username = usernameEditText.getText().toString().trim();
