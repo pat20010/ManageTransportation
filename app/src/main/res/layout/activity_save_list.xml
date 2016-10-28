@@ -8,7 +8,7 @@
     tools:context="com.project_develop_team.managetransportation.SaveListActivity">
 
     <Button
-        android:id="@+id/saveListButton"
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -23,62 +23,53 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/taskNameTextView"
+        android:id="@+id/task_name_text_view"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/account_image_view"
         android:layout_marginTop="21dp"
         android:textSize="17sp"
         android:textStyle="bold"
-        tools:text="nameTask"
-        android:layout_below="@+id/accountImageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        tools:text="nameTask" />
 
     <TextView
-        android:id="@+id/taskAddressTextView"
+        android:id="@+id/task_address_phone_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="addressTask"
-        android:textSize="14sp"
-        android:layout_below="@+id/taskNameTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp" />
+        android:layout_below="@+id/task_name_text_view"
+        android:layout_marginTop="5dp"
+        android:textSize="14sp"
+        tools:text="addressTask" />
 
     <ImageView
-        android:id="@+id/accountImageView"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_action_account"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="20dp"
+        android:id="@+id/account_image_view"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@drawable/ic_action_account" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/account_image_view"
+        android:layout_marginBottom="23dp"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/account_image_view"
+        android:layout_toRightOf="@+id/account_image_view"
         android:textSize="18sp"
-        tools:text="name"
-        android:layout_marginBottom="23dp"
-        android:layout_alignBottom="@+id/accountImageView"
-        android:layout_toRightOf="@+id/accountImageView"
-        android:layout_toEndOf="@+id/accountImageView" />
-
-    <TextView
-        android:id="@+id/taskPhoneTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="phoneTask"
-        android:layout_below="@+id/taskAddressTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        tools:text="name" />
 
 </RelativeLayout>

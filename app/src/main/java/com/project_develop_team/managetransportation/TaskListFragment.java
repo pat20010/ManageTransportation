@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
 
-    @BindView(R.id.datesTaskTextView)
+    @BindView(R.id.dates_task_text_view)
     TextView datesTaskTextView;
 
     FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
@@ -50,7 +50,7 @@ public class TaskListFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.tasks_list);
         recyclerView.setHasFixedSize(true);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE d MMMM", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
         datesTaskTextView.setText(simpleDateFormat.format(new Date()));
         return view;
     }
@@ -60,8 +60,8 @@ public class TaskListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(false);
+        layoutManager.setStackFromEnd(false);
         recyclerView.setLayoutManager(layoutManager);
 
         Query tasksQuery = getQuery(databaseReference);
@@ -71,9 +71,9 @@ public class TaskListFragment extends Fragment {
             protected void populateViewHolder(TasksViewHolder viewHolder, Tasks model, int position) {
                 DatabaseReference tasksRef = getRef(position);
 
-                viewHolder.bindToTasks(model);
-                databaseReference.child("tasks").child(tasksRef.getKey());
-                databaseReference.child("users-tasks").child(model.uid).child(tasksRef.getKey());
+                viewHolder.bindToTasks(model, getActivity());
+                databaseReference.child(getString(R.string.firebase_tasks)).child(tasksRef.getKey());
+                databaseReference.child(getString(R.string.firebase_users_tasks)).child(model.uid).child(tasksRef.getKey());
 
                 final String tasksKey = tasksRef.getKey();
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +102,6 @@ public class TaskListFragment extends Fragment {
     }
 
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child("users-tasks").child(getUid());
+        return databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid());
     }
 }

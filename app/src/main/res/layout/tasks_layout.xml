@@ -16,7 +16,7 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/taskNameTextView"
+            android:id="@+id/task_name_text_view"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,27 +26,54 @@
             android:textStyle="bold"
             tools:text="name" />
 
-        <GridLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/taskNameTextView"
+            android:layout_below="@+id/task_name_text_view"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/taskAddressTextView"
+                android:id="@+id/task_address_phone_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="address" />
+                android:textSize="14sp"
+                tools:text="address_phone" />
 
             <TextView
-                android:id="@+id/taskPhoneTextView"
+                android:id="@+id/title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="phone" />
+                android:layout_below="@+id/task_address_phone_text_view"
+                android:layout_marginTop="2dp"
+                android:textColor="#8c8c8c"
+                android:textSize="13sp"
+                tools:text="@string/text_title" />
 
-        </GridLayout>
+            <ImageView
+                android:id="@+id/car_image_view"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/task_address_phone_text_view"
+                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
+                android:layout_toEndOf="@+id/title_text_view"
+                android:layout_toRightOf="@+id/title_text_view"
+                android:contentDescription="@string/image_ic_car"
+                android:src="@drawable/ic_transport" />
+
+            <TextView
+                android:id="@+id/duration_distance_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/title_text_view"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/car_image_view"
+                android:layout_toRightOf="@+id/car_image_view"
+                tools:text="duration_distance" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

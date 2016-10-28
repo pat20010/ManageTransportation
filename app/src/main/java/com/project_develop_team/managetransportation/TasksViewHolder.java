@@ -1,6 +1,7 @@
 package com.project_develop_team.managetransportation;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -12,22 +13,24 @@ import butterknife.ButterKnife;
 
 class TasksViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.taskNameTextView)
+    @BindView(R.id.task_name_text_view)
     TextView taskNameTextView;
-    @BindView(R.id.taskAddressTextView)
-    TextView taskAddressTextView;
-    @BindView(R.id.taskPhoneTextView)
-    TextView taskPhoneTextView;
+    @BindView(R.id.task_address_phone_text_view)
+    TextView taskAddressPhoneTextView;
+    @BindView(R.id.title_text_view)
+    TextView titleTextView;
 
     public TasksViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    void bindToTasks(Tasks tasks) {
+    void bindToTasks(Tasks tasks, Context context) {
+        String taskAddressPhone = tasks.task_address + context.getString(R.string.call) + tasks.task_phone;
 
-        taskNameTextView.setText(tasks.taskName);
-        taskAddressTextView.setText(tasks.taskAddress);
-        taskPhoneTextView.setText("โทร" + " " + tasks.taskPhone);
+        taskNameTextView.setText(tasks.task_name);
+        taskAddressPhoneTextView.setText(taskAddressPhone);
+        titleTextView.setText(context.getString(R.string.text_title));
+
     }
 }

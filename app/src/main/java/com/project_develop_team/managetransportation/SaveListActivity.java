@@ -22,15 +22,14 @@ public class SaveListActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     public static final String EXTRA_TASKS_KEY = "tasks-key";
+    private static final String MUST_PASS = "Must pass EXTRA_TASKS_KEY";
 
-    @BindView(R.id.nameTextView)
+    @BindView(R.id.name_text_view)
     TextView nameTextView;
-    @BindView(R.id.taskNameTextView)
+    @BindView(R.id.task_name_text_view)
     TextView taskNameTextView;
-    @BindView(R.id.taskAddressTextView)
-    TextView taskAddressTextView;
-    @BindView(R.id.taskPhoneTextView)
-    TextView taskPhoneTextView;
+    @BindView(R.id.task_address_phone_text_view)
+    TextView taskAddressPhoneTextView;
 
     private ValueEventListener eventListener;
 
@@ -44,7 +43,7 @@ public class SaveListActivity extends AppCompatActivity {
 
         tasksKey = getIntent().getStringExtra(EXTRA_TASKS_KEY);
         if (tasksKey == null) {
-            throw new IllegalArgumentException("Must pass EXTRA_TASKS_KEY");
+            throw new IllegalArgumentException(MUST_PASS);
         }
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
@@ -57,18 +56,19 @@ public class SaveListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tasks tasks = dataSnapshot.getValue(Tasks.class);
+
+                String taskAddressPhone = tasks.task_address + getString(R.string.call) + tasks.task_phone;
                 nameTextView.setText(tasks.name);
-                taskNameTextView.setText(tasks.taskName);
-                taskAddressTextView.setText(tasks.taskAddress);
-                taskPhoneTextView.setText("โทร" + " " + tasks.taskPhone);
+                taskNameTextView.setText(tasks.task_name);
+                taskAddressPhoneTextView.setText(taskAddressPhone);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Fail load task", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.loading_list_fail, Toast.LENGTH_SHORT).show();
             }
         };
-        databaseReference.child("tasks").child(tasksKey).addValueEventListener(eventListener);
+        databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).addValueEventListener(eventListener);
     }
 
     @Override
@@ -79,10 +79,10 @@ public class SaveListActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.saveListButton)
+    @OnClick(R.id.save_button)
     public void saveList() {
-        databaseReference.child("tasks").child(tasksKey).child("status").setValue("เสร็จเรียบร้อย");
-        databaseReference.child("users-tasks").child(getUid()).child(tasksKey).removeValue();
+        databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
+        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
         finish();
     }
 
