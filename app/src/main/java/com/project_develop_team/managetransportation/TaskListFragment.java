@@ -1,6 +1,5 @@
 package com.project_develop_team.managetransportation;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,14 +24,15 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 public class TaskListFragment extends Fragment {
 
-    @BindView(R.id.datesTaskTextView)
+    @BindView(R.id.dates_task_text_view)
     TextView datesTaskTextView;
 
-    FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
+    private FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
+
     private DatabaseReference databaseReference;
+
     private RecyclerView recyclerView;
 
     public TaskListFragment() {
@@ -50,7 +50,7 @@ public class TaskListFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.tasks_list);
         recyclerView.setHasFixedSize(true);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE d MMMM", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
         datesTaskTextView.setText(simpleDateFormat.format(new Date()));
         return view;
     }
@@ -72,8 +72,8 @@ public class TaskListFragment extends Fragment {
                 DatabaseReference tasksRef = getRef(position);
 
                 viewHolder.bindToTasks(model);
-                databaseReference.child("tasks").child(tasksRef.getKey());
-                databaseReference.child("users-tasks").child(model.uid).child(tasksRef.getKey());
+                databaseReference.child(getString(R.string.firebase_tasks)).child(tasksRef.getKey());
+                databaseReference.child(getString(R.string.firebase_users_tasks)).child(model.uid).child(tasksRef.getKey());
 
                 final String tasksKey = tasksRef.getKey();
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +102,6 @@ public class TaskListFragment extends Fragment {
     }
 
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child("users-tasks").child(getUid());
+        return databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid());
     }
 }

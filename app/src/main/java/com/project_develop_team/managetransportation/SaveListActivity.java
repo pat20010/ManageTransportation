@@ -23,11 +23,11 @@ public class SaveListActivity extends AppCompatActivity {
 
     @BindView(R.id.nameTextView)
     TextView nameTextView;
-    @BindView(R.id.taskNameTextView)
+    @BindView(R.id.task_name_text_view)
     TextView taskNameTextView;
-    @BindView(R.id.taskAddressTextView)
+    @BindView(R.id.task_address_text_view)
     TextView taskAddressTextView;
-    @BindView(R.id.taskPhoneTextView)
+    @BindView(R.id.task_phone_text_view)
     TextView taskPhoneTextView;
 
     private ValueEventListener mEventListener;
@@ -58,9 +58,9 @@ public class SaveListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tasks tasks = dataSnapshot.getValue(Tasks.class);
                 nameTextView.setText(tasks.name);
-                taskNameTextView.setText(tasks.taskName);
-                taskAddressTextView.setText(tasks.taskAddress);
-                taskPhoneTextView.setText("โทร" + " " + tasks.taskPhone);
+                taskNameTextView.setText(tasks.task_name);
+                taskAddressTextView.setText(tasks.task_address);
+                taskPhoneTextView.setText("โทร" + " " + tasks.task_phone);
             }
 
             @Override

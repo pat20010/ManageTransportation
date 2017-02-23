@@ -5,7 +5,7 @@
     tools:context=".MainTabActivity">
 
     <TextView
-        android:id="@+id/datesTaskTextView"
+        android:id="@+id/dates_task_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,7 +18,7 @@
         android:id="@+id/tasks_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/datesTaskTextView"
+        android:layout_below="@+id/dates_task_text_view"
         android:clipToPadding="false"
         android:padding="1dp"
         android:scrollbars="vertical"

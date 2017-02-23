@@ -23,7 +23,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/taskNameTextView"
+        android:id="@+id/task_name_text_view"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,12 +36,12 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:id="@+id/taskAddressTextView"
+        android:id="@+id/task_address_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="addressTask"
         android:textSize="14sp"
-        android:layout_below="@+id/taskNameTextView"
+        android:layout_below="@+id/task_name_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp" />
@@ -73,11 +73,11 @@
         android:layout_toEndOf="@+id/accountImageView" />
 
     <TextView
-        android:id="@+id/taskPhoneTextView"
+        android:id="@+id/task_phone_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="phoneTask"
-        android:layout_below="@+id/taskAddressTextView"
+        android:layout_below="@+id/task_address_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
