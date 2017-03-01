@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ManageTransportation</string>
+    <string name="enter_password">กรุณาใส่รหัสผ่าน!</string>
+    <string name="enter_username">กรุณาใส่ชื่อผู้ใช้!</string>
+    <string name="internet_connect_fail">ไม่สามารถเข้าสู่ระบบได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ</string>
+    <string name="loading">กรุณารอสักครู่. . .</string>
+    <string name="login">เข้าสู่ระบบ</string>
+    <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
+    <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
+    <string name="navigation_drawer_close"></string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="sign_in">ลงชื่อเข้าใช้</string>
+    <string name="sign_out">ออกจากระบบ</string>
+    <string name="user_login_fail">ชื่อผู้ใช้หรือรหัสผ่านที่คุณป้อนไม่ถูกต้อง โปรดลองอีกครั้ง</string>
+    <string name="username">ชื่อผู้ใช้@transportation.com</string>
+</resources>

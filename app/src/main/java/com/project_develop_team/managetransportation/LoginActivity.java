@@ -1,6 +1,5 @@
 package com.project_develop_team.managetransportation;
 
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +35,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    private static final String SHARED_PREFERENCES = "SharedPreferences";
+    private static final String USER_NAME = "UserName";
+    private static final String EMPTY = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
 
         rememberUsername();
         auth = FirebaseAuth.getInstance();
-
     }
 
     @OnClick(R.id.loginButton)
@@ -66,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                         alertDialog();
                     }
                 }
-
             });
         }
     }
@@ -81,15 +82,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onAuthSuccess() {
 
-        startActivity(new Intent(this, MainTabActivity.class));
+        startActivity(new Intent(this, MainNavigationDrawer.class));
         finish();
-
     }
 
     public void showProgressDialog() {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Loading. . .");
+            progressDialog.setMessage(getString(R.string.loading));
             progressDialog.setCancelable(false);
         }
         progressDialog.show();
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             builder.setTitle(R.string.login_incorrect);
             builder.setMessage(R.string.user_login_fail);
         }
-        builder.setPositiveButton("ตกลง", null);
+        builder.setPositiveButton(android.R.string.ok, null);
         builder.show();
     }
 
@@ -137,9 +137,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void rememberUsername() {
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
-        usernameEditText.setText(sharedPreferences.getString("UserName", ""));
+        usernameEditText.setText(sharedPreferences.getString(USER_NAME, EMPTY));
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                editor.putString("UserName", s.toString());
+                editor.putString(USER_NAME, s.toString());
                 editor.apply();
             }
         });
