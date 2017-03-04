@@ -8,10 +8,14 @@
     <string name="login">เข้าสู่ระบบ</string>
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
-    <string name="navigation_drawer_close"></string>
     <string name="password">รหัสผ่าน</string>
     <string name="sign_in">ลงชื่อเข้าใช้</string>
     <string name="sign_out">ออกจากระบบ</string>
     <string name="user_login_fail">ชื่อผู้ใช้หรือรหัสผ่านที่คุณป้อนไม่ถูกต้อง โปรดลองอีกครั้ง</string>
     <string name="username">ชื่อผู้ใช้@transportation.com</string>
+    <string name="contact">ติดต่อ</string>
+    <string name="list">รายการ</string>
+    <string name="map">แผนที่</string>
+    <string name="me">ฉัน</string>
+    <string name="task_list">รายการงาน</string>
 </resources>

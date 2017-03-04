@@ -28,9 +28,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainNavigationDrawer"
-            android:label="@string/title_activity_main_navigation_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".MainBottomNavigation"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

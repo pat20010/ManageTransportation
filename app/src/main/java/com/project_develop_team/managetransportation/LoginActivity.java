@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onAuthSuccess() {
 
-        startActivity(new Intent(this, MainNavigationDrawer.class));
+        startActivity(new Intent(this, MainBottomNavigation.class));
         finish();
     }
 
