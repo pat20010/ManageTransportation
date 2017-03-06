@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStrip;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +22,7 @@ public class TaskListFragment extends Fragment {
     FragmentPagerAdapter pagerAdapter;
 
     @BindView(R.id.tabs)
-    PagerSlidingTabStrip tabStrip;
+    SmartTabLayout smartTabLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class TaskListFragment extends Fragment {
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.container);
         viewPager.setAdapter(pagerAdapter);
-        tabStrip.setViewPager(viewPager);
+        smartTabLayout.setViewPager(viewPager);
 
         return view;
     }
