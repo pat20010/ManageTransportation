@@ -2,26 +2,68 @@ package com.project_develop_team.managetransportation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.astuetz.PagerSlidingTabStrip;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
 
-    Toolbar toolbarTaskList;
+    @BindView(R.id.toolbar_title_task_list)
+    TextView toolbarTitle;
+
+    FragmentPagerAdapter pagerAdapter;
+
+    @BindView(R.id.tabs)
+    PagerSlidingTabStrip tabStrip;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
-        toolbarTaskList = (Toolbar) view.findViewById(R.id.toolbar_task_list);
+        ButterKnife.bind(this, view);
+
+        pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
+            private final Fragment[] fragments = new Fragment[]{
+                    new TaskTypeAllFragment(),
+                    new TaskTypeTodayFragment(),
+                    new TaskTypeExpressFragment(),
+                    new TaskTypeTomorrowFragment(),
+                    new TaskTypeCompleteFragment()
+            };
+
+            @Override
+            public Fragment getItem(int position) {
+                return fragments[position];
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.length;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return getResources().getStringArray(R.array.tab_headings)[position];
+            }
+        };
+
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.container);
+        viewPager.setAdapter(pagerAdapter);
+        tabStrip.setViewPager(viewPager);
 
         return view;
     }

@@ -5,9 +5,9 @@
     <color name="colorAccent">#1F262B</color>
 
     <color name="colorInactive">#747474</color>
-    <color name="colorActiveSmall">#FFFFFF</color>
-    <color name="colorInactiveSmall">#50FFFFFF</color>
-
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteBlue">#BFCED9</color>
+    <color name="colorGreenBlue">#a0f5e1</color>
     <color name="colorBlueCharcoal">#363a3d</color>
     <color name="colorBlueBlack">#1F262B</color>
 

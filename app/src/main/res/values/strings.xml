@@ -21,4 +21,14 @@
     <string name="me">Me</string>
     <string name="task_list">TaskList</string>
 
+    <string-array name="tab_headings">
+        <item>All</item>
+        <item>Today</item>
+        <item>Express</item>
+        <item>Tomorrow</item>
+        <item>Complete</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

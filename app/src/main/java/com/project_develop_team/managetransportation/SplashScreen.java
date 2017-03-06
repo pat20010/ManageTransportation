@@ -46,4 +46,5 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(runnable, delayTime);
         time = System.currentTimeMillis();
     }
+
 }
