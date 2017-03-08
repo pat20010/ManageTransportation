@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +15,7 @@ import com.project_develop_team.managetransportation.models.Tasks;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SaveListActivity extends AppCompatActivity {
 
@@ -23,7 +25,7 @@ public class SaveListActivity extends AppCompatActivity {
 
     private static final String MUST_PASS = "Must pass" + EXTRA_TASKS_KEY;
 
-    @BindView(R.id.nameTextView)
+    @BindView(R.id.name_text_view)
     TextView nameTextView;
     @BindView(R.id.task_name_text_view)
     TextView taskNameTextView;
@@ -48,8 +50,8 @@ public class SaveListActivity extends AppCompatActivity {
         if (tasksKey == null) {
             throw new IllegalArgumentException(MUST_PASS);
         }
-        databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child(getString(R.string.firebase_tasks)).child(tasksKey);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
 
         call = getString(R.string.call);
     }
@@ -76,7 +78,7 @@ public class SaveListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.fail_load_task, Toast.LENGTH_SHORT).show();
             }
         };
-        databaseReference.addValueEventListener(eventListener);
+        databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).addValueEventListener(eventListener);
 
         mEventListener = eventListener;
     }
@@ -87,5 +89,16 @@ public class SaveListActivity extends AppCompatActivity {
         if (mEventListener != null) {
             databaseReference.removeEventListener(mEventListener);
         }
+    }
+
+    private String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
+
+    @OnClick(R.id.save_list_button)
+    public void saveList() {
+        databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
+        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
+        finish();
     }
 }

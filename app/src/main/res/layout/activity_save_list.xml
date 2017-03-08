@@ -8,7 +8,7 @@
     tools:context="com.project_develop_team.managetransportation.SaveListActivity">
 
     <Button
-        android:id="@+id/saveListButton"
+        android:id="@+id/save_list_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/accountImageView"
+        android:layout_below="@+id/account_image_view"
         android:layout_marginTop="21dp"
         android:textSize="17sp"
         android:textStyle="bold"
@@ -47,7 +47,7 @@
         tools:text="addressTask" />
 
     <ImageView
-        android:id="@+id/accountImageView"
+        android:id="@+id/account_image_view"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
@@ -60,15 +60,15 @@
         app:srcCompat="@drawable/ic_round_account_me" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/accountImageView"
+        android:layout_alignBottom="@+id/account_image_view"
         android:layout_marginBottom="23dp"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/accountImageView"
-        android:layout_toRightOf="@+id/accountImageView"
+        android:layout_toEndOf="@+id/account_image_view"
+        android:layout_toRightOf="@+id/account_image_view"
         android:textSize="18sp"
         tools:text="name" />
 

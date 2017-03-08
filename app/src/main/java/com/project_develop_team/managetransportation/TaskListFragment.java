@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
@@ -15,9 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
-
-    @BindView(R.id.toolbar_title_task_list)
-    TextView toolbarTitle;
 
     FragmentPagerAdapter pagerAdapter;
 
@@ -66,4 +62,5 @@ public class TaskListFragment extends Fragment {
 
         return view;
     }
+
 }
