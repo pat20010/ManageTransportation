@@ -26,9 +26,9 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.usernameEditText)
+    @BindView(R.id.username_edit_text)
     EditText usernameEditText;
-    @BindView(R.id.passwordEditText)
+    @BindView(R.id.password_edit_text)
     EditText passwordEditText;
 
     private FirebaseAuth auth;
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
     }
 
-    @OnClick(R.id.loginButton)
+    @OnClick(R.id.login_button)
     public void login() {
 
         final String username = usernameEditText.getText().toString().trim();
