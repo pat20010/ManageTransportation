@@ -9,6 +9,8 @@
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
     <string name="password">รหัสผ่าน</string>
+    <string name="save">บันทึก</string>
+    <string name="save_list">บันทึกรายการ</string>
     <string name="sign_in">ลงชื่อเข้าใช้</string>
     <string name="sign_out">ออกจากระบบ</string>
     <string name="user_login_fail">ชื่อผู้ใช้หรือรหัสผ่านที่คุณป้อนไม่ถูกต้อง โปรดลองอีกครั้ง</string>
@@ -18,4 +20,16 @@
     <string name="map">แผนที่</string>
     <string name="me">ฉัน</string>
     <string name="task_list">รายการงาน</string>
+
+    <string-array name="tab_headings">
+        <item>ทั้งหมด</item>
+        <item>วันนี้</item>
+        <item>ด่วน</item>
+        <item>พรุ่งนี้</item>
+        <item>เสร็จสิ้น</item>
+    </string-array>
+    <string name="ok">ตกลง</string>
+    <string name="call">โทร</string>
+    <string name="loading_list_fail">โหลดรายการล้มเลว</string>
+    <string name="fail_load_task">โหลดงานล้มเหลว</string>
 </resources>
