@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.project_develop_team.managetransportation.models.Tasks;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -38,7 +37,7 @@ class TasksViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         int taskDate = Integer.parseInt(simpleDateFormat.format(new Date()));
 
-        int taskDateTomorrow = 20170324;
+        int taskDateTomorrow = 20170325;
 
         String time = String.valueOf(tasks.task_time) + "0";
 
@@ -52,7 +51,7 @@ class TasksViewHolder extends RecyclerView.ViewHolder {
             }
         }
         if (taskDateTomorrow == tasks.task_date) {
-            taskTypeTextView.setText("Tomorrow");
+            taskTypeTextView.setText(R.string.tomorrow);
             taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_yellow_tomorrow));
         }
         taskNameCollectTextView.setText(tasks.task_name_collect);

@@ -55,7 +55,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private Snackbar snackbar;
 
     private ProgressDialog progressDialog;
-    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

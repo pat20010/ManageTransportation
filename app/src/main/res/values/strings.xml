@@ -33,11 +33,6 @@
 
     <string name="meter">\u00A0m</string>
     <string name="kilometer">\u00A0km</string>
-
-    <string name="title_activity_maps" translatable="false">Map</string>
-    <string name="contact_fragment" translatable="false">Contact Fragment</string>
-    <string name="address" translatable="false">address</string>
-    <string name="phone" translatable="false">phone</string>
     <string name="loading_list_fail">Loading list failed!</string>
 
     <string name="distance_data">distance</string>

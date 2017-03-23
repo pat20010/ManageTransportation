@@ -79,7 +79,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
                 .setSmallestDisplacement(50)
-                .setInterval(60000*5);
+                .setInterval(60000 * 5);
     }
 
     public void startLocationUpdates() {
@@ -133,7 +133,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                final Tasks tasks = dataSnapshot.getValue(Tasks.class);
                 final LatLng destination = new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect);
 
                 final String refKey = dataSnapshot.getKey();
@@ -152,7 +152,12 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
                                 for (int i = 0; i < direction.getRouteList().size(); i++) {
                                     double taskDistance = Double.parseDouble(direction.getRouteList().get(i).getLegList().get(i).getDistance().getValue());
 
-                                    databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_distance)).setValue(taskDistance);
+                                    if (tasks.task_date == 20170325) {
+                                        double taskDistanceTomorrow = taskDistance * 2;
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistanceTomorrow);
+                                    } else {
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistance);
+                                    }
                                 }
                             }
 

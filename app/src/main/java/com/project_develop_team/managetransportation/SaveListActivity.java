@@ -107,7 +107,7 @@ public class SaveListActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         int taskDate = Integer.parseInt(simpleDateFormat.format(new Date()));
 
-        int taskDateTomorrow = 20170324;
+        int taskDateTomorrow = 20170325;
 
         String time = String.valueOf(tasks.task_time) + "0";
         if (taskDate == tasks.task_date) {
