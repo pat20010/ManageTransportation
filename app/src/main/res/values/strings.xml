@@ -21,4 +21,7 @@
     <string name="me">Me</string>
     <string name="task_list">TaskList</string>
 
+    <string name="ok" translatable="false">OK</string>
+    <string name="not_available">Not available</string>
+
 </resources>
