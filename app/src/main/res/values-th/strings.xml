@@ -28,7 +28,7 @@
     <string name="map">แผนที่</string>
     <string name="me">ฉัน</string>
     <string name="task_list">รายการงาน</string>
-
+    <string name="not_available">ยังไม่พร้อมใช้งาน</string>
     <string-array name="tab_headings">
         <item>ทั้งหมด</item>
         <item>วันนี้</item>
