@@ -4,10 +4,24 @@
     android:layout_height="match_parent"
     tools:context="com.project_develop_team.managetransportation.TaskTypeExpressFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/dates_task_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text="@string/dates_task"
+        android:textSize="15sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tasks_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@+id/dates_task_text_view"
+        android:layout_marginBottom="40dp"
+        android:clipToPadding="false"
+        android:padding="1dp"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

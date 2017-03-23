@@ -63,7 +63,7 @@
         android:layout_below="@+id/view2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="73dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_primary"
         android:paddingLeft="100dp"
         android:paddingRight="100dp"
         android:text="@string/login"

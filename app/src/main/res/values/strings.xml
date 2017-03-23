@@ -22,10 +22,12 @@
 
     <string name="dates_task" translatable="false">Dates Task</string>
     <string name="call">Call\u00A0</string>
+    <string name="address">Address\u00A0</string>
     <string name="date_format" translatable="false">EEEE d MMMM</string>
 
     <string name="save_list">SaveList</string>
-    <string name="save">Save</string>
+    <string name="complete_transport">Record of transport completed.</string>
+    <string name="transport_completed">Transport Completed</string>
     <string name="ok">OK</string>
     <string-array name="tab_headings">
         <item>All</item>
@@ -35,19 +37,14 @@
         <item>Complete</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="text_title">To destination by duration</string>
-    <string name="image_ic_car" translatable="false">Image Car</string>
     <string name="transport_success" translatable="false">เสร็จเรียบร้อย</string>
-    <string name="address" translatable="false">address</string>
-    <string name="phone" translatable="false">phone</string>
     <string name="loading_list_fail">Loading list failed!</string>
-    <string name="distance_data">distance</string>
     <string name="dot" translatable="false">.</string>
-    <string name="duration_data">duration</string>
     <string name="fail_load_task">Fail load task</string>
     <string name="empty" translatable="false">\u00A0</string>
+    <string name="today">Today</string>
+    <string name="express">Express</string>
+    <string name="tomorrow">Tomorrow</string>
 
     <string name="firebase_users_tasks" translatable="false">users_tasks</string>
     <string name="firebase_tasks" translatable="false">tasks</string>
@@ -56,4 +53,5 @@
     <string name="firebase_latitude" translatable="false">latitude</string>
     <string name="firebase_longitude" translatable="false">longitude</string>
     <string name="firebase_task_distance" translatable="false">task_distance</string>
+    <string name="firebase_task_average" translatable="false">task_average</string>
 </resources>

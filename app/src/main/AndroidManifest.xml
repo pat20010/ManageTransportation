@@ -15,6 +15,7 @@
 
         <activity
             android:name=".SplashScreen"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +26,8 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="@string/sign_in">
+            android:label="@string/sign_in"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -33,11 +35,13 @@
 
         <activity
             android:name=".MainBottomNavigation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".SaveListActivity"
-            android:label="@string/save_list" />
+            android:label="@string/save_list"
+            android:screenOrientation="portrait" />
 
     </application>
 
