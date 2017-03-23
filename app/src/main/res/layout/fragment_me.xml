@@ -27,4 +27,40 @@
             android:textStyle="bold" />
     </android.support.v7.widget.Toolbar>
 
+    <ImageView
+        android:id="@+id/account_image_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar_me"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="31dp"
+        android:src="@drawable/ic_round_account_me" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/account_image_view"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_toEndOf="@+id/account_image_view"
+        android:layout_toRightOf="@+id/account_image_view"
+        android:text="@string/name"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/sign_out_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/sign_out"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
 </RelativeLayout>
