@@ -155,6 +155,9 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
                                     if (tasks.task_date == 20170325) {
                                         double taskDistanceTomorrow = taskDistance * 2;
                                         databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistanceTomorrow);
+                                    } else if (tasks.task_date == 20170324 && tasks.task_time <= 12) {
+                                        double taskDistanceExpress = taskDistance / 2;
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistanceExpress);
                                     } else {
                                         databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistance);
                                     }

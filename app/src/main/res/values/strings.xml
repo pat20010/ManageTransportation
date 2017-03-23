@@ -21,8 +21,6 @@
     <string name="task_list">TaskList</string>
 
     <string name="name" translatable="false">Thanapon Jaisanuk</string>
-
-    <string name="ok" translatable="false">OK</string>
     <string name="not_available">Not available</string>
 
     <string name="dates_task" translatable="false">Dates Task</string>
