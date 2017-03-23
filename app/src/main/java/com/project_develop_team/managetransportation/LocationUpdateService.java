@@ -78,8 +78,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         mGoogleApiClient.connect();
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                .setSmallestDisplacement(10)
-                .setInterval(60000);
+                .setSmallestDisplacement(50)
+                .setInterval(60000*5);
     }
 
     public void startLocationUpdates() {
@@ -134,7 +134,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Tasks tasks = dataSnapshot.getValue(Tasks.class);
-                final LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
+                final LatLng destination = new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect);
 
                 final String refKey = dataSnapshot.getKey();
 

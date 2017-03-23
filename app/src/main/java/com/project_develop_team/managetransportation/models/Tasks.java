@@ -17,7 +17,6 @@ public class Tasks {
     public double task_longitude_collect;
     public double task_latitude_deliver;
     public double task_longitude_deliver;
-
     public Tasks() {
     }
 
@@ -25,7 +24,6 @@ public class Tasks {
                  String task_name_deliver, String task_address_deliver, String task_phone_deliver, int task_date, double task_time,
                  double task_latitude_collect, double task_longitude_collect, double task_latitude_deliver,
                  double task_longitude_deliver) {
-
         this.uid = uid;
         this.name = name;
         this.task_name_collect = task_name_collect;
