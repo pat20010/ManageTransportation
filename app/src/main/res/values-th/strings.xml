@@ -37,8 +37,14 @@
         <item>เสร็จสิ้น</item>
     </string-array>
     <string name="ok">ตกลง</string>
-    <string name="call">โทร</string>
+    <string name="call">โทร\u00A0</string>
     <string name="loading_list_fail">โหลดรายการล้มเลว</string>
     <string name="fail_load_task">โหลดงานล้มเหลว</string>
     <string name="you_are_here">คุณอยู่นี้</string>
+    <string name="address">ที่อยู่\u00A0</string>
+    <string name="express">ด่วน</string>
+    <string name="today">วันนี้</string>
+    <string name="tomorrow">พรุ่งนี้</string>
+    <string name="transport_completed">จัดส่งเสร็จสิ้น</string>
+    <string name="complete_transport">บันทึกรายการการจัดส่งเสร็จสิ้น</string>
 </resources>

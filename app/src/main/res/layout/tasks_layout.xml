@@ -4,85 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="1dp"
-    android:layout_marginRight="1dp"
-    app:cardCornerRadius="1dp"
-    app:cardElevation="1dp">
+    android:layout_marginBottom="7dp"
+    android:layout_marginEnd="1dp"
+    android:layout_marginStart="1dp"
+    android:background="@color/angel_white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/task_name_text_view"
-            style="@style/TextAppearance.AppCompat.Medium"
+            android:id="@+id/task_type_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="18sp"
+            android:padding="5dp"
+            android:textColor="@color/color_white"
+            android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="task_name" />
+            tools:text="task_type" />
+
+        <TextView
+            android:id="@+id/task_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="task_time" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/task_name_text_view"
+            android:layout_below="@+id/task_type_text_view"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="@dimen/margin_padding"
+            android:layout_marginLeft="@dimen/bottom_navigation_padding_right"
+            android:layout_marginRight="@dimen/margin_padding"
+            android:layout_marginStart="@dimen/bottom_navigation_padding_right"
+            android:layout_marginTop="13dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/task_address_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                tools:text="task_address" />
+            <ImageView
+                android:id="@+id/collect_image_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/ic_collect" />
 
             <TextView
-                android:id="@+id/task_phone_text_view"
-                android:layout_width="wrap_content"
+                android:id="@+id/task_name_collect_text_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/task_address_text_view"
-                android:textSize="14sp"
-                tools:text="task_phone" />
-
-            <TextView
-                android:id="@+id/title_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/task_phone_text_view"
-                android:layout_marginTop="2dp"
-                android:textColor="#8c8c8c"
-                android:textSize="13sp"
-                tools:text="@string/text_title" />
+                android:layout_alignBottom="@+id/collect_image_view"
+                android:layout_alignTop="@+id/collect_image_view"
+                android:layout_toRightOf="@+id/collect_image_view"
+                android:paddingLeft="15dp"
+                android:textColor="@color/jet_black"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                tools:text="task_name_collect" />
 
             <ImageView
-                android:id="@+id/car_image_view"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_below="@+id/task_phone_text_view"
-                android:layout_marginLeft="11dp"
-                android:layout_marginStart="11dp"
-                android:layout_toEndOf="@+id/title_text_view"
-                android:layout_toRightOf="@+id/title_text_view"
-                android:contentDescription="@string/image_ic_car"
-                android:src="@drawable/ic_transport" />
+                android:id="@+id/deliver_image_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/collect_image_view"
+                android:layout_marginTop="15dp"
+                app:srcCompat="@drawable/ic_deliver" />
 
             <TextView
-                android:id="@+id/duration_distance_text_view"
-                android:layout_width="wrap_content"
+                android:id="@+id/task_name_deliver_text_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/title_text_view"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/car_image_view"
-                android:layout_toRightOf="@+id/car_image_view"
-                tools:text="duration_distance" />
+                android:layout_alignBottom="@+id/deliver_image_view"
+                android:layout_alignTop="@+id/deliver_image_view"
+                android:layout_toRightOf="@+id/deliver_image_view"
+                android:paddingLeft="15dp"
+                android:textColor="@color/jet_black"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                tools:text="task_name_deliver" />
         </RelativeLayout>
 
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
+

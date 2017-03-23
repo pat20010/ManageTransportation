@@ -4,11 +4,252 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
+    android:background="#ececec"
     tools:context="com.project_develop_team.managetransportation.SaveListActivity">
 
+    <RelativeLayout
+        android:id="@+id/layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/angel_white">
+
+        <TextView
+            android:id="@+id/task_type_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textColor="@color/color_white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="task_type" />
+
+        <TextView
+            android:id="@+id/task_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:textSize="15sp"
+            tools:text="task_time" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_1"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/angel_white"
+        android:paddingBottom="3dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/task_name_collect_text_view"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="task_name_collect" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_2"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/angel_white"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/address_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/task_address_collect_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/address_collect"
+            android:textSize="16sp"
+            tools:text="task_address_collect" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/address_collect"
+            android:layout_alignLeft="@+id/address_collect"
+            android:layout_alignRight="@+id/address_collect"
+            android:layout_alignStart="@+id/address_collect"
+            android:layout_below="@+id/address_collect"
+            android:paddingTop="3dp"
+            app:srcCompat="@drawable/ic_placeholder" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_3"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/angel_white"
+        android:paddingBottom="3dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/call_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/call"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/task_phone_collect_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/call_collect"
+            android:textSize="16sp"
+            tools:text="task_phone_collect" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_4"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/angel_white"
+        android:paddingBottom="3dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/task_name_deliver_text_view"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="task_name_deliver" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_5"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/angel_white"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/address_deliver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/task_address_deliver_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/address_deliver"
+            android:textSize="16sp"
+            tools:text="task_address_deliver" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/address_deliver"
+            android:layout_alignLeft="@+id/address_deliver"
+            android:layout_alignRight="@+id/address_deliver"
+            android:layout_alignStart="@+id/address_deliver"
+            android:layout_below="@+id/address_deliver"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/ic_placeholder" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_6"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/angel_white"
+        android:paddingBottom="3dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/call_deliver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/call"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/task_phone_deliver_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/call_deliver"
+            android:textSize="16sp"
+            tools:text="task_phone_deliver" />
+
+    </RelativeLayout>
+
     <Button
-        android:id="@+id/save_list_button"
+        android:id="@+id/transport_completed_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -16,69 +257,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="61dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/save"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/color_primary"
+        android:text="@string/transport_completed"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/task_name_text_view"
-        style="@style/TextAppearance.AppCompat.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/account_image_view"
-        android:layout_marginTop="21dp"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        tools:text="nameTask" />
-
-    <TextView
-        android:id="@+id/task_address_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/task_name_text_view"
-        android:layout_marginTop="5dp"
-        android:textSize="14sp"
-        tools:text="addressTask" />
-
-    <ImageView
-        android:id="@+id/account_image_view"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_round_account_me" />
-
-    <TextView
-        android:id="@+id/name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/account_image_view"
-        android:layout_marginBottom="23dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/account_image_view"
-        android:layout_toRightOf="@+id/account_image_view"
-        android:textSize="18sp"
-        tools:text="name" />
-
-    <TextView
-        android:id="@+id/task_phone_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/task_address_text_view"
-        tools:text="phoneTask" />
 
 </RelativeLayout>
