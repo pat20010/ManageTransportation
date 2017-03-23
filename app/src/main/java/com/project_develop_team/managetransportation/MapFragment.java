@@ -29,11 +29,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -122,41 +120,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
     }
 
-    private void retrieveDataTasksLocation(final Location location) {
-
-        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).orderByChild(getString(R.string.firebase_task_distance)).limitToFirst(1).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Tasks tasks = dataSnapshot.getValue(Tasks.class);
-                LatLng destination = new LatLng(tasks.latitude, tasks.longitude);
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     @Override
     public void onLocationChanged(final Location location) {
-        retrieveDataTasksLocation(location);
+
     }
 
     @Override
@@ -223,7 +189,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 for (DataSnapshot pointsSnapshot : dataSnapshots) {
                     Tasks tasks = pointsSnapshot.getValue(Tasks.class);
 
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.latitude, tasks.longitude)).title(tasks.task_name)
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
                 }
             }
