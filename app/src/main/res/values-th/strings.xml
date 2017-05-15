@@ -35,7 +35,9 @@
     <string name="express">ด่วน</string>
     <string name="today">วันนี้</string>
     <string name="tomorrow">พรุ่งนี้</string>
-    <string name="transport_completed">จัดส่งเสร็จสิ้น</string>
+    <string name="transport_completed">การจัดส่งเสร็จสิ้น</string>
     <string name="complete_transport">บันทึกรายการการจัดส่งเสร็จสิ้น</string>
     <string name="complete">เสร็จสิ้น</string>
+    <string name="record_transport">คุณต้องการที่จะบันทึกรายการการจัดส่งหรือไม่</string>
+    <string name="transport_confirmation">ยืนยันการจัดส่ง</string>
 </resources>

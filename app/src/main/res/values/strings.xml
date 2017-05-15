@@ -29,6 +29,8 @@
     <string name="save_list">SaveList</string>
     <string name="complete_transport">Record of transport completed.</string>
     <string name="transport_completed">Transport Completed</string>
+    <string name="record_transport">Do you want to record the transport?</string>
+    <string name="transport_confirmation">Transport Confirmation"</string>
     <string name="ok">OK</string>
     <string-array name="tab_headings">
         <item>All</item>

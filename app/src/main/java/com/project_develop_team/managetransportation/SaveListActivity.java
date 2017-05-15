@@ -1,12 +1,14 @@
 package com.project_develop_team.managetransportation;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +59,10 @@ public class SaveListActivity extends AppCompatActivity {
     TextView getTaskPhoneDeliverTextView;
 
     private ValueEventListener mEventListener;
+
+    private ProgressDialog progressDialog;
+
+    private AlertDialog.Builder alertDialog;
 
     String tasksKey;
 
@@ -180,21 +186,67 @@ public class SaveListActivity extends AppCompatActivity {
 
     @OnClick(R.id.transport_completed_button)
     public void saveList() {
-        databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
-        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
-        alertDialogCompleted();
+        alertDialogConfirmation();
     }
 
     private void alertDialogCompleted() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.transport_completed);
-        builder.setMessage(R.string.complete_transport);
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(R.string.transport_completed);
+        alertDialog.setMessage(R.string.complete_transport);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         });
-        builder.show();
+
+        alertDialog.show();
+    }
+
+    private void alertDialogConfirmation() {
+        alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(R.string.transport_confirmation);
+        alertDialog.setMessage(R.string.record_transport);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
+                databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
+                showProgressDialog();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                    }
+                }, 2000);
+            }
+        });
+        alertDialog.setNegativeButton(android.R.string.cancel, null);
+        alertDialog.show();
+    }
+
+    public void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage(getString(R.string.loading));
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 2500);
+            alertDialogCompleted();
+        }
     }
 }
