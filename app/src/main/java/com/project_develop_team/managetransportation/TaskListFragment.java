@@ -41,6 +41,7 @@ public class TaskListFragment extends Fragment {
                     new TaskTypeTodayFragment(),
                     new TaskTypeExpressFragment(),
                     new TaskTypeTomorrowFragment(),
+                    new TaskTypeCompleteFragment(),
             };
 
             @Override

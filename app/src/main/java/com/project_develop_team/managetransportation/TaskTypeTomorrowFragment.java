@@ -16,8 +16,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.project_develop_team.managetransportation.models.Tasks;
+import com.project_develop_team.managetransportation.viewholder.TasksViewHolder;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -30,8 +32,12 @@ public class TaskTypeTomorrowFragment extends Fragment {
     TextView datesTaskTextView;
 
     FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
+
     private DatabaseReference databaseReference;
+
     private RecyclerView recyclerView;
+
+    int tomorrowDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,14 @@ public class TaskTypeTomorrowFragment extends Fragment {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
         datesTaskTextView.setText(simpleDateFormat.format(new Date()));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date tomorrow = calendar.getTime();
+
+        SimpleDateFormat currentDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
+        tomorrowDate = Integer.parseInt(currentDateFormat.format(tomorrow));
+
         return view;
     }
 
@@ -70,7 +84,13 @@ public class TaskTypeTomorrowFragment extends Fragment {
             protected void populateViewHolder(TasksViewHolder viewHolder, Tasks model, int position) {
                 DatabaseReference tasksRef = getRef(position);
 
-                viewHolder.bindToTasks(model, getActivity());
+                if (model.task_date == tomorrowDate) {
+                    viewHolder.bindToTasks(model, getActivity());
+                } else {
+                    viewHolder.cardView.setVisibility(View.GONE);
+                    viewHolder.relativeLayout.setVisibility(View.GONE);
+                    viewHolder.linearLayout.setVisibility(View.GONE);
+                }
                 databaseReference.child(getString(R.string.firebase_tasks)).child(tasksRef.getKey());
                 databaseReference.child(getString(R.string.firebase_users_tasks)).child(model.uid).child(tasksRef.getKey());
 
@@ -101,6 +121,6 @@ public class TaskTypeTomorrowFragment extends Fragment {
     }
 
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).orderByChild("task_type").equalTo("พรุ่งนี้");
+        return databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).orderByChild(getString(R.string.firebase_task_average));
     }
 }

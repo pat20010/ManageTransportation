@@ -9,7 +9,6 @@
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
     <string name="password">รหัสผ่าน</string>
-    <string name="save">บันทึก</string>
     <string name="save_list">บันทึกรายการ</string>
     <string name="sign_in">ลงชื่อเข้าใช้</string>
     <string name="sign_out">ออกจากระบบ</string>
@@ -38,4 +37,5 @@
     <string name="tomorrow">พรุ่งนี้</string>
     <string name="transport_completed">จัดส่งเสร็จสิ้น</string>
     <string name="complete_transport">บันทึกรายการการจัดส่งเสร็จสิ้น</string>
+    <string name="complete">เสร็จสิ้น</string>
 </resources>

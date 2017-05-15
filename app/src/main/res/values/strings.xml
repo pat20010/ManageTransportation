@@ -24,6 +24,7 @@
     <string name="call">Call\u00A0</string>
     <string name="address">Address\u00A0</string>
     <string name="date_format" translatable="false">EEEE d MMMM</string>
+    <string name="date_tasks_format" translatable="false">yyyyMMdd</string>
 
     <string name="save_list">SaveList</string>
     <string name="complete_transport">Record of transport completed.</string>
@@ -45,6 +46,7 @@
     <string name="today">Today</string>
     <string name="express">Express</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="complete">Complete</string>
 
     <string name="firebase_users_tasks" translatable="false">users_tasks</string>
     <string name="firebase_tasks" translatable="false">tasks</string>

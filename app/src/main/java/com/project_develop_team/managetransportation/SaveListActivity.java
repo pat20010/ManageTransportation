@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.project_develop_team.managetransportation.models.Tasks;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -104,12 +105,26 @@ public class SaveListActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void setLayoutData(final Tasks tasks, Context context) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-        int taskDate = Integer.parseInt(simpleDateFormat.format(new Date()));
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
 
-        int taskDateTomorrow = 20170324;
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date tomorrow = calendar.getTime();
 
-        String time = String.valueOf(tasks.task_time) + "0";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
+        int taskDate = Integer.parseInt(simpleDateFormat.format(today));
+
+        int taskDateTomorrow = Integer.parseInt(simpleDateFormat.format(tomorrow));
+
+        handleDateTasks(taskDate, taskDateTomorrow, tasks, context);
+
+        setClickNavigation(tasks);
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void handleDateTasks(int taskDate, int taskDateTomorrow, Tasks tasks, Context context) {
+        String time = String.valueOf(tasks.task_time) + "0 น.";
+
         if (taskDate == tasks.task_date) {
             taskTypeTextView.setText(R.string.today);
             taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_green_today));
@@ -134,7 +149,9 @@ public class SaveListActivity extends AppCompatActivity {
         taskNameDeliverTextView.setText(tasks.task_name_deliver);
         taskAddressDeliverTextView.setText(tasks.task_address_deliver);
         getTaskPhoneDeliverTextView.setText(tasks.task_phone_deliver);
+    }
 
+    private void setClickNavigation(final Tasks tasks) {
         taskAddressCollectTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,8 +180,8 @@ public class SaveListActivity extends AppCompatActivity {
 
     @OnClick(R.id.transport_completed_button)
     public void saveList() {
-        //databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
-        //databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
+        databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
+        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
         alertDialogCompleted();
     }
 

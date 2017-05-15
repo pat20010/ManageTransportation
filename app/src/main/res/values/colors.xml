@@ -14,6 +14,7 @@
     <color name="color_green_today">#00ac14</color>
     <color name="color_red_express">#ac1300</color>
     <color name="color_yellow_tomorrow">#ded40d</color>
+    <color name="color_gray_complete">#bababa</color>
     <color name="color_orange_collect">#cf600d</color>
     <color name="color_yellow_deliver">#dbde0d</color>
 

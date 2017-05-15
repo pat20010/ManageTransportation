@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.project_develop_team.managetransportation.models.Tasks;
+import com.project_develop_team.managetransportation.viewholder.TasksViewHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +31,12 @@ public class TaskTypeAllFragment extends Fragment {
     TextView datesTaskTextView;
 
     FirebaseRecyclerAdapter<Tasks, TasksViewHolder> recyclerAdapter;
+
     private DatabaseReference databaseReference;
+
     private RecyclerView recyclerView;
+
+    int currentDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,11 @@ public class TaskTypeAllFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.tasks_list);
         recyclerView.setHasFixedSize(true);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
-        datesTaskTextView.setText(simpleDateFormat.format(new Date()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
+        datesTaskTextView.setText(dateFormat.format(new Date()));
+
+        SimpleDateFormat currentDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
+        currentDate = Integer.parseInt(currentDateFormat.format(new Date()));
         return view;
     }
 
@@ -63,14 +71,19 @@ public class TaskTypeAllFragment extends Fragment {
         layoutManager.setStackFromEnd(false);
         recyclerView.setLayoutManager(layoutManager);
 
-        Query tasksQuery = getQuery(databaseReference);
+        final Query tasksQuery = getQuery(databaseReference);
         recyclerAdapter = new FirebaseRecyclerAdapter<Tasks, TasksViewHolder>(Tasks.class, R.layout.tasks_layout,
                 TasksViewHolder.class, tasksQuery) {
             @Override
             protected void populateViewHolder(TasksViewHolder viewHolder, Tasks model, int position) {
                 DatabaseReference tasksRef = getRef(position);
-
-                viewHolder.bindToTasks(model, getActivity());
+                if (model.task_date != currentDate) {
+                    viewHolder.cardView.setVisibility(View.GONE);
+                    viewHolder.relativeLayout.setVisibility(View.GONE);
+                    viewHolder.linearLayout.setVisibility(View.GONE);
+                } else {
+                    viewHolder.bindToTasks(model, getActivity());
+                }
                 databaseReference.child(getString(R.string.firebase_tasks)).child(tasksRef.getKey());
                 databaseReference.child(getString(R.string.firebase_users_tasks)).child(model.uid).child(tasksRef.getKey());
 
@@ -101,6 +114,6 @@ public class TaskTypeAllFragment extends Fragment {
     }
 
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).orderByChild(getString(R.string.firebase_task_average)).endAt("l");
+        return databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).orderByChild(getString(R.string.firebase_task_average));
     }
 }

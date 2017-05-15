@@ -11,6 +11,7 @@ public class Tasks {
     public String task_name_deliver;
     public String task_address_deliver;
     public String task_phone_deliver;
+    public String status;
     public int task_date;
     public double task_time;
     public double task_latitude_collect;
@@ -22,7 +23,7 @@ public class Tasks {
     }
 
     public Tasks(String uid, String name, String task_name_collect, String task_address_collect, String task_phone_collect,
-                 String task_name_deliver, String task_address_deliver, String task_phone_deliver, int task_date, double task_time,
+                 String task_name_deliver, String task_address_deliver, String task_phone_deliver, String status, int task_date, double task_time,
                  double task_latitude_collect, double task_longitude_collect, double task_latitude_deliver,
                  double task_longitude_deliver) {
 
@@ -34,6 +35,7 @@ public class Tasks {
         this.task_name_deliver = task_name_deliver;
         this.task_address_deliver = task_address_deliver;
         this.task_phone_deliver = task_phone_deliver;
+        this.status = status;
         this.task_date = task_date;
         this.task_time = task_time;
         this.task_latitude_collect = task_latitude_collect;
