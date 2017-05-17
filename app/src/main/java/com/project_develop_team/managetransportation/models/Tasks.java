@@ -18,6 +18,7 @@ public class Tasks {
     public String task_longitude_collect;
     public String task_latitude_deliver;
     public String task_longitude_deliver;
+    public double task_average;
 
     public Tasks() {
     }
@@ -25,7 +26,7 @@ public class Tasks {
     public Tasks(String uid, String name, String task_name_collect, String task_address_collect, String task_phone_collect,
                  String task_name_deliver, String task_address_deliver, String task_phone_deliver, String status, String task_date, String task_time,
                  String task_latitude_collect, String task_longitude_collect, String task_latitude_deliver,
-                 String task_longitude_deliver) {
+                 String task_longitude_deliver, double task_average) {
 
         this.uid = uid;
         this.name = name;
@@ -42,5 +43,6 @@ public class Tasks {
         this.task_longitude_collect = task_longitude_collect;
         this.task_latitude_deliver = task_latitude_deliver;
         this.task_longitude_deliver = task_longitude_deliver;
+        this.task_average = task_average;
     }
 }

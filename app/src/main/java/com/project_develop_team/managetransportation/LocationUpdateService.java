@@ -97,8 +97,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         mGoogleApiClient.connect();
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                .setSmallestDisplacement(50)
-                .setInterval(60000 * 5);
+                .setSmallestDisplacement(100)
+                .setInterval(30000);
     }
 
     public void startLocationUpdates() {
@@ -153,8 +153,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final Tasks tasks = dataSnapshot.getValue(Tasks.class);
-                double tasksLatCollect = Double.parseDouble(tasks.task_latitude_collect);
-                double tasksLongCollect = Double.parseDouble(tasks.task_longitude_collect);
+                final double tasksLatCollect = Double.parseDouble(tasks.task_latitude_collect);
+                final double tasksLongCollect = Double.parseDouble(tasks.task_longitude_collect);
 
                 final LatLng destination = new LatLng(tasksLatCollect, tasksLongCollect);
 
@@ -184,6 +184,13 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
                                         databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistanceExpress);
                                     } else {
                                         databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistance);
+                                    }
+
+                                    if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0")) && tasks.task_average < 1000 && tasks.task_date.equals(todayDate)) {
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_latitude_collect)).setValue("0");
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_longitude_collect)).setValue("0");
+                                        databaseReference.child(getString(R.string.firebase_tasks)).child(refKey).child(getString(R.string.firebase_latitude_collect)).setValue("0");
+                                        databaseReference.child(getString(R.string.firebase_tasks)).child(refKey).child(getString(R.string.firebase_longitude_collect)).setValue("0");
                                     }
                                 }
                             }

@@ -30,6 +30,10 @@
     <string name="transport_completed">Transport Completed</string>
     <string name="record_transport">Do you want to record the transport?</string>
     <string name="transport_confirmation">Transport Confirmation"</string>
+    <string name="location_completed">Location Completed</string>
+    <string name="complete_location">This location has been successfully transport.</string>
+    <string name="transport_unsuccessful">Transport Unsuccessful</string>
+    <string name="unsuccessful_transport">Record of transport unsuccessful, because the location is not yet complete.</string>
     <string-array name="tab_headings">
         <item>All</item>
         <item>Today</item>
@@ -73,4 +77,6 @@
     <string name="firebase_longitude" translatable="false">longitude</string>
     <string name="firebase_task_distance" translatable="false">task_distance</string>
     <string name="firebase_task_average" translatable="false">task_average</string>
+    <string name="firebase_latitude_collect" translatable="false">task_latitude_collect</string>
+    <string name="firebase_longitude_collect" translatable="false">task_longitude_collect</string>
 </resources>

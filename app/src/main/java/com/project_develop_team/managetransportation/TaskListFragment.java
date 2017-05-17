@@ -1,5 +1,6 @@
 package com.project_develop_team.managetransportation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,6 +29,7 @@ public class TaskListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getContext().startService(new Intent(getContext(), LocationUpdateService.class));
     }
 
     @Override

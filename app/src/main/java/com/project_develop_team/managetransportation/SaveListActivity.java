@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SaveListActivity extends AppCompatActivity {
 
@@ -58,6 +58,8 @@ public class SaveListActivity extends AppCompatActivity {
     @BindView(R.id.task_phone_deliver_text_view)
     TextView getTaskPhoneDeliverTextView;
 
+    private Button transportCompletedButton;
+
     private ValueEventListener mEventListener;
 
     private ProgressDialog progressDialog;
@@ -77,6 +79,8 @@ public class SaveListActivity extends AppCompatActivity {
             throw new IllegalArgumentException(MUST_PASS);
         }
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        transportCompletedButton = (Button) findViewById(R.id.transport_completed_button);
     }
 
     @Override
@@ -125,6 +129,13 @@ public class SaveListActivity extends AppCompatActivity {
         handleDateTasks(taskDate, taskDateTomorrow, tasks, context);
 
         setClickNavigation(tasks);
+
+        transportCompletedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogConfirmation(tasks);
+            }
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -170,11 +181,15 @@ public class SaveListActivity extends AppCompatActivity {
         taskAddressCollectTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri intentCollectUri = Uri.parse("google.navigation:q=" + tasksLatCollect + "," +
-                        tasksLongCollect + "&mod=d&avoid=thf");
-                Intent intent = new Intent(Intent.ACTION_VIEW, intentCollectUri);
-                intent.setPackage("com.google.android.apps.maps");
-                startActivity(intent);
+                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0"))) {
+                    Uri intentCollectUri = Uri.parse("google.navigation:q=" + tasksLatCollect + "," +
+                            tasksLongCollect + "&mod=d&avoid=thf");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, intentCollectUri);
+                    intent.setPackage("com.google.android.apps.maps");
+                    startActivity(intent);
+                } else {
+                    alertDialogNavigation();
+                }
             }
         });
         taskAddressDeliverTextView.setOnClickListener(new View.OnClickListener() {
@@ -193,11 +208,6 @@ public class SaveListActivity extends AppCompatActivity {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    @OnClick(R.id.transport_completed_button)
-    public void saveList() {
-        alertDialogConfirmation();
-    }
-
     private void alertDialogCompleted() {
         alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(R.string.transport_completed);
@@ -212,26 +222,51 @@ public class SaveListActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void alertDialogConfirmation() {
+    private void alertDialogUnsuccessful() {
+        alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(R.string.transport_unsuccessful);
+        alertDialog.setMessage(R.string.unsuccessful_transport);
+        alertDialog.setPositiveButton(R.string.ok, null);
+
+        alertDialog.show();
+    }
+
+
+    private void alertDialogConfirmation(final Tasks tasks) {
         alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(R.string.transport_confirmation);
         alertDialog.setMessage(R.string.record_transport);
         alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
-                databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
-                showProgressDialog();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideProgressDialog();
-                    }
-                }, 2000);
+                if (tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0")) {
+
+                    databaseReference.child(getString(R.string.firebase_tasks)).child(tasksKey).child(getString(R.string.firebase_status)).setValue(getString(R.string.transport_success));
+                    databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(tasksKey).removeValue();
+
+                    showProgressDialog();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideProgressDialog();
+                        }
+                    }, 2000);
+                } else {
+                    alertDialogUnsuccessful();
+                }
             }
         });
         alertDialog.setNegativeButton(android.R.string.cancel, null);
+        alertDialog.show();
+    }
+
+    private void alertDialogNavigation() {
+        alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(R.string.location_completed);
+        alertDialog.setMessage(R.string.complete_location);
+        alertDialog.setPositiveButton(R.string.ok, null);
+
         alertDialog.show();
     }
 

@@ -40,7 +40,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project_develop_team.managetransportation.models.Tasks;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -64,11 +67,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     Map<String, Marker> markers;
 
+    String todayDate;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         getContext().startService(new Intent(getContext(), LocationUpdateService.class));
+
+        SimpleDateFormat currentDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
+        todayDate = currentDateFormat.format(new Date());
     }
 
     @Override
@@ -210,14 +218,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 double taskLatDeliver = Double.parseDouble(tasks.task_latitude_deliver);
                 double taskLongDeliver = Double.parseDouble(tasks.task_longitude_deliver);
 
-                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0"))) {
+                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0")) && tasks.task_date.equals(todayDate)) {
                     final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatCollect, taskLongCollect))
                             .title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerCollect);
 
-                } else {
+                }
+                if (tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0") && tasks.task_date.equals(todayDate)) {
                     Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatDeliver, taskLongDeliver))
                             .title(tasks.task_name_deliver)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
@@ -237,14 +246,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 double taskLatDeliver = Double.parseDouble(tasks.task_latitude_deliver);
                 double taskLongDeliver = Double.parseDouble(tasks.task_longitude_deliver);
 
-                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0"))) {
+                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0")) && tasks.task_date.equals(todayDate)) {
                     final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatCollect, taskLongCollect))
                             .title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerCollect);
 
-                } else {
+                }
+                if (tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0") && tasks.task_date.equals(todayDate)) {
                     Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatDeliver, taskLongDeliver))
                             .title(tasks.task_name_deliver)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
@@ -264,14 +274,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 double taskLatDeliver = Double.parseDouble(tasks.task_latitude_deliver);
                 double taskLongDeliver = Double.parseDouble(tasks.task_longitude_deliver);
 
-                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0"))) {
+                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0")) && tasks.task_date.equals(todayDate)) {
                     final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatCollect, taskLongCollect))
                             .title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerCollect);
 
-                } else {
+                }
+                if (tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0") && tasks.task_date.equals(todayDate)) {
                     Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatDeliver, taskLongDeliver))
                             .title(tasks.task_name_deliver)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));

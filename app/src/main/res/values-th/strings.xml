@@ -48,4 +48,8 @@
     <string name="record_transport">คุณต้องการที่จะบันทึกรายการการจัดส่งหรือไม่</string>
     <string name="transport_confirmation">ยืนยันการจัดส่ง</string>
     <string name="you_are_here">คุณอยู่นี้</string>
+    <string name="complete_location">ที่ตั้งนี้ได้รับการจัดส่งเสร็จสิ้นแล้ว</string>
+    <string name="location_completed">ที่ตั้งเสร๋จสิ้น</string>
+    <string name="transport_unsuccessful">รายการการจัดส่งไม่สำเร็จ</string>
+    <string name="unsuccessful_transport">บันทึกรายการการจัดส่งไม่สำเร็จ เนื่องจากที่ตั้งการขนส่งยังไม่เสร็จสิ้น</string>
 </resources>
