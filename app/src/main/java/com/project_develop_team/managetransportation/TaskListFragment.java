@@ -14,6 +14,7 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 public class TaskListFragment extends Fragment {
 
     @BindView(R.id.toolbar_title_task_list)
@@ -66,4 +67,5 @@ public class TaskListFragment extends Fragment {
 
         return view;
     }
+
 }

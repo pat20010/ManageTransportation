@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ManageTransportation</string>
+    <string name="meter">\u00A0เมตร</string>
+    <string name="kilometer">\u00A0กม.</string>
+    <string name="distance_data">ระยะทาง</string>
+    <string name="duration_data">ระยะเวลา</string>
+
     <string name="enter_password">กรุณาใส่รหัสผ่าน!</string>
     <string name="enter_username">กรุณาใส่ชื่อผู้ใช้!</string>
     <string name="internet_connect_fail">ไม่สามารถเข้าสู่ระบบได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ</string>
     <string name="loading">กรุณารอสักครู่. . .</string>
+    <string name="location_fail">ไม่สามารถเชื่อมต่อไปยังตำแหน่งที่อยู่ได้ โปรดตรวจสอบการเปิดใช้งานตำแหน่ง</string>
     <string name="login">เข้าสู่ระบบ</string>
     <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
     <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
+    <string name="no_google_play">ไม่ได้ติดตั้ง Google Play</string>
+    <string name="not_connect_google_play">การเชื่อมต่อ Google Play ล้มเหลว</string>
     <string name="password">รหัสผ่าน</string>
+    <string name="save">บันทึก</string>
     <string name="save_list">บันทึกรายการ</string>
     <string name="sign_in">ลงชื่อเข้าใช้</string>
     <string name="sign_out">ออกจากระบบ</string>

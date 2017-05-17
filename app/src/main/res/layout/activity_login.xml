@@ -8,7 +8,7 @@
     tools:context="com.project_develop_team.managetransportation.LoginActivity">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/view"
+        android:id="@+id/view_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,7 +18,7 @@
         android:gravity="fill_vertical">
 
         <EditText
-            android:id="@+id/usernameEditText"
+            android:id="@+id/username_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -37,13 +37,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/view"
+        android:layout_alignTop="@+id/view_username"
         android:layout_marginTop="100dp"
         android:gravity="fill_vertical"
         app:passwordToggleEnabled="false">
 
         <EditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/password_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/usernameEditText"
@@ -57,7 +57,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view2"

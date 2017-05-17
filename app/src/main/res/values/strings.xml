@@ -56,6 +56,42 @@
     <string name="firebase_status" translatable="false">status</string>
     <string name="firebase_latitude" translatable="false">latitude</string>
     <string name="firebase_longitude" translatable="false">longitude</string>
+    <string name="save_list">SaveList</string>
+    <string name="save">Save</string>
+    <string name="ok">OK</string>
+
+    <string name="no_google_play">Not installed Google Play!</string>
+    <string name="not_connect_google_play">Connection Google Play fail!</string>
+    <string name="server_key" translatable="false">AIzaSyDK9lA1T5JogUKexBmbv0oP5fpKd3t5m84</string>
+    <string name="location_fail">Can not connect to the Location. Check the Enable Location.</string>
+    <string name="you_are_here">You are here</string>
+
+    <string name="meter">\u00A0m</string>
+    <string name="kilometer">\u00A0km</string>
+
+    <string-array name="tab_headings">
+        <item>List</item>
+        <item>Map</item>
+        <item>Contact</item>
+    </string-array>
+
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="contact_fragment" translatable="false">Contact Fragment</string>
+    <string name="address" translatable="false">address</string>
+    <string name="phone" translatable="false">phone</string>
+    <string name="loading_list_fail">Loading list failed!</string>
+
+    <string name="distance_data">distance</string>
+    <string name="dot" translatable="false">.</string>
+    <string name="duration_data">duration</string>
+
+    <string name="firebase_users_tasks" translatable="false">users_tasks</string>
+    <string name="firebase_tasks" translatable="false">tasks</string>
+    <string name="firebase_users" translatable="false">users</string>
+    <string name="firebase_status" translatable="false">status</string>
+    <string name="firebase_latitude" translatable="false">latitude</string>
+    <string name="firebase_longitude" translatable="false">longitude</string>
+    <string name="firebase_task_distance" translatable="false">task_distance</string>
     <string name="firebase_task_distance" translatable="false">task_distance</string>
     <string name="firebase_task_average" translatable="false">task_average</string>
 </resources>
