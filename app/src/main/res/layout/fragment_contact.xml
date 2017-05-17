@@ -31,31 +31,26 @@
         android:id="@+id/message_image_view"
         android:layout_width="550dp"
         android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar_contact"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:padding="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="40dp"
-        android:src="@drawable/ic_message"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:src="@drawable/ic_email" />
 
     <ImageView
         android:id="@+id/call_image_view"
         android:layout_width="550dp"
         android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_alignLeft="@+id/message_image_view"
+        android:layout_alignRight="@+id/message_image_view"
+        android:layout_below="@+id/message_image_view"
         android:background="@color/colorPrimary"
         android:padding="20dp"
-        android:src="@drawable/ic_telephone"
-        android:layout_below="@+id/message_image_view"
-        android:layout_alignLeft="@+id/message_image_view"
-        android:layout_alignStart="@+id/message_image_view"
-        android:layout_alignRight="@+id/message_image_view"
-        android:layout_alignEnd="@+id/message_image_view" />
+        android:src="@drawable/ic_telephone" />
 
 </RelativeLayout>

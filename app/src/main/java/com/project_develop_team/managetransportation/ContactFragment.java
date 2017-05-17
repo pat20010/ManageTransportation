@@ -1,8 +1,9 @@
 package com.project_develop_team.managetransportation;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,20 +40,16 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.message_image_view:
-                alertDialog();
+                Intent mailClient = new Intent(Intent.ACTION_SEND);
+                String address = "managetransportation56@gmail.com";
+                mailClient.setType("text/email");
+                mailClient.putExtra(Intent.EXTRA_EMAIL, new String[]{address});
+                startActivity(Intent.createChooser(mailClient, "Send email with"));
                 break;
             case R.id.call_image_view:
-                alertDialog();
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "083-832-6098"));
+                startActivity(intent);
                 break;
         }
-    }
-
-    private void alertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setTitle(R.string.not_available);
-        builder.setMessage(R.string.not_available);
-        builder.setPositiveButton(R.string.ok, null);
-        builder.show();
     }
 }
