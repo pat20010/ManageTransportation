@@ -29,15 +29,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project_develop_team.managetransportation.models.Tasks;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -55,6 +59,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private Snackbar snackbar;
 
     private ProgressDialog progressDialog;
+
+    Marker marker;
+
+    Map<String, Marker> markers;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,7 +130,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     @Override
     public void onLocationChanged(final Location location) {
+        final LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
+        if (marker != null) {
+            marker.remove();
+
+            marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title(getString(R.string.you_are_here))
+                    .flat(true).anchor(0.6f, 0.6f).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_vespa)));
+        }
+        if (marker == null) {
+            marker = mMap.addMarker(new MarkerOptions().position(myLatLng).title(getString(R.string.you_are_here))
+                    .flat(true).anchor(0.6f, 0.6f).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_vespa)));
+        }
     }
 
     @Override
@@ -179,19 +198,65 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     public void loadMarker() {
-
-        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                final Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                markers = new HashMap<>();
 
-                Iterable<DataSnapshot> dataSnapshots = dataSnapshot.getChildren();
-                mMap.clear();
-                for (DataSnapshot pointsSnapshot : dataSnapshots) {
-                    Tasks tasks = pointsSnapshot.getValue(Tasks.class);
-
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
+                if (!(tasks.task_latitude_collect == 0 && tasks.task_longitude_collect == 0)) {
+                    final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
+
+                    markers.put(dataSnapshot.getKey(), taskMarkerCollect);
+
+                } else {
+                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_deliver, tasks.task_longitude_deliver)).title(tasks.task_name_deliver)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
+
+                    markers.put(dataSnapshot.getKey(), taskMarkerDeliver);
                 }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                markers = new HashMap<>();
+
+                if (!(tasks.task_latitude_collect == 0 && tasks.task_longitude_collect == 0)) {
+                    Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
+
+                    markers.put(dataSnapshot.getKey(), taskMarkerCollect);
+                } else {
+                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_deliver, tasks.task_longitude_deliver)).title(tasks.task_name_deliver)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
+
+                    markers.put(dataSnapshot.getKey(), taskMarkerDeliver);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                markers = new HashMap<>();
+
+                if (!(tasks.task_latitude_collect == 0 && tasks.task_longitude_collect == 0)) {
+                    Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
+
+                    markers.put(dataSnapshot.getKey(), taskMarkerCollect);
+                } else {
+                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_deliver, tasks.task_longitude_deliver)).title(tasks.task_name_deliver)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
+
+                    markers.put(dataSnapshot.getKey(), taskMarkerDeliver);
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -220,8 +285,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         if (locationAvailability.isLocationAvailable()) {
             LocationRequest locationRequest = new LocationRequest()
                     .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                    .setSmallestDisplacement(5)
-                    .setInterval(60000);
+                    .setSmallestDisplacement(100)
+                    .setInterval(50000);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 12));
             loadMarker();
