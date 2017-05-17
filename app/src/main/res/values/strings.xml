@@ -20,6 +20,8 @@
     <string name="me">Me</string>
     <string name="task_list">TaskList</string>
 
+    <string name="name" translatable="false">Thanapon Jaisanuk</string>
+
     <string name="dates_task" translatable="false">Dates Task</string>
     <string name="call">Call\u00A0</string>
     <string name="address">Address\u00A0</string>
