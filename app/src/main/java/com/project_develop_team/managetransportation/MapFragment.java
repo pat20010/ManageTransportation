@@ -204,14 +204,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 final Tasks tasks = dataSnapshot.getValue(Tasks.class);
                 markers = new HashMap<>();
 
-                if (!(tasks.task_latitude_collect == 0 && tasks.task_longitude_collect == 0)) {
-                    final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
+                double taskLatCollect = Double.parseDouble(tasks.task_latitude_collect);
+                double taskLongCollect = Double.parseDouble(tasks.task_longitude_collect);
+
+                double taskLatDeliver = Double.parseDouble(tasks.task_latitude_deliver);
+                double taskLongDeliver = Double.parseDouble(tasks.task_longitude_deliver);
+
+                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0"))) {
+                    final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatCollect, taskLongCollect))
+                            .title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerCollect);
 
                 } else {
-                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_deliver, tasks.task_longitude_deliver)).title(tasks.task_name_deliver)
+                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatDeliver, taskLongDeliver))
+                            .title(tasks.task_name_deliver)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerDeliver);
@@ -220,16 +228,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                final Tasks tasks = dataSnapshot.getValue(Tasks.class);
                 markers = new HashMap<>();
 
-                if (!(tasks.task_latitude_collect == 0 && tasks.task_longitude_collect == 0)) {
-                    Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
+                double taskLatCollect = Double.parseDouble(tasks.task_latitude_collect);
+                double taskLongCollect = Double.parseDouble(tasks.task_longitude_collect);
+
+                double taskLatDeliver = Double.parseDouble(tasks.task_latitude_deliver);
+                double taskLongDeliver = Double.parseDouble(tasks.task_longitude_deliver);
+
+                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0"))) {
+                    final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatCollect, taskLongCollect))
+                            .title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerCollect);
+
                 } else {
-                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_deliver, tasks.task_longitude_deliver)).title(tasks.task_name_deliver)
+                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatDeliver, taskLongDeliver))
+                            .title(tasks.task_name_deliver)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerDeliver);
@@ -238,16 +255,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                final Tasks tasks = dataSnapshot.getValue(Tasks.class);
                 markers = new HashMap<>();
 
-                if (!(tasks.task_latitude_collect == 0 && tasks.task_longitude_collect == 0)) {
-                    Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect)).title(tasks.task_name_collect)
+                double taskLatCollect = Double.parseDouble(tasks.task_latitude_collect);
+                double taskLongCollect = Double.parseDouble(tasks.task_longitude_collect);
+
+                double taskLatDeliver = Double.parseDouble(tasks.task_latitude_deliver);
+                double taskLongDeliver = Double.parseDouble(tasks.task_longitude_deliver);
+
+                if (!(tasks.task_latitude_collect.equals("0") && tasks.task_longitude_collect.equals("0"))) {
+                    final Marker taskMarkerCollect = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatCollect, taskLongCollect))
+                            .title(tasks.task_name_collect)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_azure)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerCollect);
+
                 } else {
-                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(tasks.task_latitude_deliver, tasks.task_longitude_deliver)).title(tasks.task_name_deliver)
+                    Marker taskMarkerDeliver = mMap.addMarker(new MarkerOptions().position(new LatLng(taskLatDeliver, taskLongDeliver))
+                            .title(tasks.task_name_deliver)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_pink)));
 
                     markers.put(dataSnapshot.getKey(), taskMarkerDeliver);

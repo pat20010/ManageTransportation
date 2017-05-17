@@ -29,6 +29,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project_develop_team.managetransportation.models.Tasks;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class LocationUpdateService extends Service implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -39,6 +44,10 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     private LocationRequest locationRequest;
 
     private GoogleApiClient mGoogleApiClient;
+
+    private String todayDate;
+
+    private String tomorrowDate;
 
     public LocationUpdateService() {
     }
@@ -72,6 +81,16 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     public void onCreate() {
         super.onCreate();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date tomorrow = calendar.getTime();
+
+        SimpleDateFormat currentDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
+        todayDate = currentDateFormat.format(today);
+        tomorrowDate = currentDateFormat.format(tomorrow);
     }
 
     public void createLocationRequest() {
@@ -79,7 +98,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
                 .setSmallestDisplacement(50)
-                .setInterval(60000*5);
+                .setInterval(60000 * 5);
     }
 
     public void startLocationUpdates() {
@@ -133,8 +152,11 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Tasks tasks = dataSnapshot.getValue(Tasks.class);
-                final LatLng destination = new LatLng(tasks.task_latitude_collect, tasks.task_longitude_collect);
+                final Tasks tasks = dataSnapshot.getValue(Tasks.class);
+                double tasksLatCollect = Double.parseDouble(tasks.task_latitude_collect);
+                double tasksLongCollect = Double.parseDouble(tasks.task_longitude_collect);
+
+                final LatLng destination = new LatLng(tasksLatCollect, tasksLongCollect);
 
                 final String refKey = dataSnapshot.getKey();
 
@@ -152,7 +174,17 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
                                 for (int i = 0; i < direction.getRouteList().size(); i++) {
                                     double taskDistance = Double.parseDouble(direction.getRouteList().get(i).getLegList().get(i).getDistance().getValue());
 
-                                    databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_distance)).setValue(taskDistance);
+                                    double tasksTime = Double.parseDouble(tasks.task_time);
+
+                                    if (tasks.task_date.equals(tomorrowDate)) {
+                                        double taskDistanceTomorrow = taskDistance * 4;
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistanceTomorrow);
+                                    } else if (tasks.task_date.equals(todayDate) && tasksTime <= 12.00) {
+                                        double taskDistanceExpress = taskDistance / 2;
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistanceExpress);
+                                    } else {
+                                        databaseReference.child(getString(R.string.firebase_users_tasks)).child(getUid()).child(refKey).child(getString(R.string.firebase_task_average)).setValue(taskDistance);
+                                    }
                                 }
                             }
 

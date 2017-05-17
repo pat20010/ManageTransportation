@@ -67,5 +67,4 @@ public class TaskListFragment extends Fragment {
 
         return view;
     }
-
 }

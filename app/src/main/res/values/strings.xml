@@ -26,12 +26,10 @@
     <string name="date_format" translatable="false">EEEE d MMMM</string>
     <string name="date_tasks_format" translatable="false">yyyy-MM-dd</string>
 
-    <string name="save_list">SaveList</string>
     <string name="complete_transport">Record of transport completed.</string>
     <string name="transport_completed">Transport Completed</string>
     <string name="record_transport">Do you want to record the transport?</string>
     <string name="transport_confirmation">Transport Confirmation"</string>
-    <string name="ok">OK</string>
     <string-array name="tab_headings">
         <item>All</item>
         <item>Today</item>
@@ -50,12 +48,6 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="complete">Complete</string>
 
-    <string name="firebase_users_tasks" translatable="false">users_tasks</string>
-    <string name="firebase_tasks" translatable="false">tasks</string>
-    <string name="firebase_users" translatable="false">users</string>
-    <string name="firebase_status" translatable="false">status</string>
-    <string name="firebase_latitude" translatable="false">latitude</string>
-    <string name="firebase_longitude" translatable="false">longitude</string>
     <string name="save_list">SaveList</string>
     <string name="save">Save</string>
     <string name="ok">OK</string>
@@ -69,21 +61,9 @@
     <string name="meter">\u00A0m</string>
     <string name="kilometer">\u00A0km</string>
 
-    <string-array name="tab_headings">
-        <item>List</item>
-        <item>Map</item>
-        <item>Contact</item>
-    </string-array>
-
     <string name="title_activity_maps" translatable="false">Map</string>
     <string name="contact_fragment" translatable="false">Contact Fragment</string>
-    <string name="address" translatable="false">address</string>
     <string name="phone" translatable="false">phone</string>
-    <string name="loading_list_fail">Loading list failed!</string>
-
-    <string name="distance_data">distance</string>
-    <string name="dot" translatable="false">.</string>
-    <string name="duration_data">duration</string>
 
     <string name="firebase_users_tasks" translatable="false">users_tasks</string>
     <string name="firebase_tasks" translatable="false">tasks</string>
@@ -91,7 +71,6 @@
     <string name="firebase_status" translatable="false">status</string>
     <string name="firebase_latitude" translatable="false">latitude</string>
     <string name="firebase_longitude" translatable="false">longitude</string>
-    <string name="firebase_task_distance" translatable="false">task_distance</string>
     <string name="firebase_task_distance" translatable="false">task_distance</string>
     <string name="firebase_task_average" translatable="false">task_average</string>
 </resources>
