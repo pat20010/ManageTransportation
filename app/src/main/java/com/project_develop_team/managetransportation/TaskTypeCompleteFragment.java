@@ -35,7 +35,7 @@ public class TaskTypeCompleteFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private int currentDate;
+    private String currentDate;
 
     private String transportSuccess;
 
@@ -59,7 +59,7 @@ public class TaskTypeCompleteFragment extends Fragment {
         datesTaskTextView.setText(simpleDateFormat.format(new Date()));
 
         SimpleDateFormat currentDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
-        currentDate = Integer.parseInt(currentDateFormat.format(new Date()));
+        currentDate = currentDateFormat.format(new Date());
 
         return view;
     }
@@ -81,7 +81,7 @@ public class TaskTypeCompleteFragment extends Fragment {
             @Override
             protected void populateViewHolder(TasksViewHolder viewHolder, Tasks model, int position) {
 
-                if (model.task_date == currentDate && model.status.equals(transportSuccess)) {
+                if (model.task_date.equals(currentDate) && model.status.equals(transportSuccess)) {
                     viewHolder.bindToTaskComplete(model, getActivity());
                 } else {
                     viewHolder.cardView.setVisibility(View.GONE);

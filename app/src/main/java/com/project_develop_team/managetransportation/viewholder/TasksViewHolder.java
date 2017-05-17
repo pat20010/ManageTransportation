@@ -54,28 +54,29 @@ public class TasksViewHolder extends RecyclerView.ViewHolder {
         Date tomorrow = calendar.getTime();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_tasks_format), Locale.getDefault());
-        int taskDate = Integer.parseInt(simpleDateFormat.format(today));
+        String taskDate = simpleDateFormat.format(today);
 
-        int taskDateTomorrow = Integer.parseInt(simpleDateFormat.format(tomorrow));
+        String taskDateTomorrow = simpleDateFormat.format(tomorrow);
 
         handleDateTasks(taskDate, taskDateTomorrow, tasks, context);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void handleDateTasks(int taskDate, int taskDateTomorrow, Tasks tasks, Context context) {
+    private void handleDateTasks(String taskDate, String taskDateTomorrow, Tasks tasks, Context context) {
+        double taskTime = Double.parseDouble((tasks.task_time));
 
-        if (taskDate == tasks.task_date) {
+        if (taskDate.equals(tasks.task_date)) {
             taskTypeTextView.setText(R.string.today);
             taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_green_today));
             setDataTasks(tasks);
 
-            if (tasks.task_time <= 12) {
+            if (taskTime <= 12.00) {
                 taskTypeTextView.setText(R.string.express);
                 taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_red_express));
                 setDataTasks(tasks);
             }
         }
-        if (taskDateTomorrow == tasks.task_date) {
+        if (taskDateTomorrow.equals(tasks.task_date)) {
             taskTypeTextView.setText(R.string.tomorrow);
             taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_yellow_tomorrow));
             setDataTasks(tasks);
@@ -90,7 +91,7 @@ public class TasksViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setDataTasks(Tasks tasks) {
-        String time = String.valueOf(tasks.task_time) + "0 น.";
+        String time = tasks.task_time + " น.";
 
         taskNameCollectTextView.setText(tasks.task_name_collect);
         taskNameDeliverTextView.setText(tasks.task_name_deliver);

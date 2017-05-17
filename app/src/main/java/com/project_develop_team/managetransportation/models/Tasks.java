@@ -12,20 +12,20 @@ public class Tasks {
     public String task_address_deliver;
     public String task_phone_deliver;
     public String status;
-    public int task_date;
-    public double task_time;
-    public double task_latitude_collect;
-    public double task_longitude_collect;
-    public double task_latitude_deliver;
-    public double task_longitude_deliver;
+    public String task_date;
+    public String task_time;
+    public String task_latitude_collect;
+    public String task_longitude_collect;
+    public String task_latitude_deliver;
+    public String task_longitude_deliver;
 
     public Tasks() {
     }
 
     public Tasks(String uid, String name, String task_name_collect, String task_address_collect, String task_phone_collect,
-                 String task_name_deliver, String task_address_deliver, String task_phone_deliver, String status, int task_date, double task_time,
-                 double task_latitude_collect, double task_longitude_collect, double task_latitude_deliver,
-                 double task_longitude_deliver) {
+                 String task_name_deliver, String task_address_deliver, String task_phone_deliver, String status, String task_date, String task_time,
+                 String task_latitude_collect, String task_longitude_collect, String task_latitude_deliver,
+                 String task_longitude_deliver) {
 
         this.uid = uid;
         this.name = name;

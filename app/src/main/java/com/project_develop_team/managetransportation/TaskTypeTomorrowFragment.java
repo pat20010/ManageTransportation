@@ -37,7 +37,7 @@ public class TaskTypeTomorrowFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    int tomorrowDate;
+    private String tomorrowDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class TaskTypeTomorrowFragment extends Fragment {
         Date tomorrow = calendar.getTime();
 
         SimpleDateFormat currentDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
-        tomorrowDate = Integer.parseInt(currentDateFormat.format(tomorrow));
+        tomorrowDate = currentDateFormat.format(tomorrow);
 
         return view;
     }
@@ -84,7 +84,7 @@ public class TaskTypeTomorrowFragment extends Fragment {
             protected void populateViewHolder(TasksViewHolder viewHolder, Tasks model, int position) {
                 DatabaseReference tasksRef = getRef(position);
 
-                if (model.task_date == tomorrowDate) {
+                if (model.task_date.equals(tomorrowDate)) {
                     viewHolder.bindToTasks(model, getActivity());
                 } else {
                     viewHolder.cardView.setVisibility(View.GONE);

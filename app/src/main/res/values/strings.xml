@@ -24,7 +24,7 @@
     <string name="call">Call\u00A0</string>
     <string name="address">Address\u00A0</string>
     <string name="date_format" translatable="false">EEEE d MMMM</string>
-    <string name="date_tasks_format" translatable="false">yyyyMMdd</string>
+    <string name="date_tasks_format" translatable="false">yyyy-MM-dd</string>
 
     <string name="save_list">SaveList</string>
     <string name="complete_transport">Record of transport completed.</string>

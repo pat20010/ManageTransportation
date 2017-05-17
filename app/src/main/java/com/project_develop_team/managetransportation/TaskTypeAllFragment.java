@@ -36,7 +36,7 @@ public class TaskTypeAllFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    int currentDate;
+    private String currentDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class TaskTypeAllFragment extends Fragment {
         datesTaskTextView.setText(dateFormat.format(new Date()));
 
         SimpleDateFormat currentDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
-        currentDate = Integer.parseInt(currentDateFormat.format(new Date()));
+        currentDate = currentDateFormat.format(new Date());
         return view;
     }
 
@@ -77,7 +77,7 @@ public class TaskTypeAllFragment extends Fragment {
             @Override
             protected void populateViewHolder(TasksViewHolder viewHolder, Tasks model, int position) {
                 DatabaseReference tasksRef = getRef(position);
-                if (model.task_date != currentDate) {
+                if (!model.task_date.equals(currentDate)) {
                     viewHolder.cardView.setVisibility(View.GONE);
                     viewHolder.relativeLayout.setVisibility(View.GONE);
                     viewHolder.linearLayout.setVisibility(View.GONE);

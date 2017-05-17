@@ -118,9 +118,9 @@ public class SaveListActivity extends AppCompatActivity {
         Date tomorrow = calendar.getTime();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_tasks_format), Locale.getDefault());
-        int taskDate = Integer.parseInt(simpleDateFormat.format(today));
+        String taskDate = simpleDateFormat.format(today);
 
-        int taskDateTomorrow = Integer.parseInt(simpleDateFormat.format(tomorrow));
+        String taskDateTomorrow = simpleDateFormat.format(tomorrow);
 
         handleDateTasks(taskDate, taskDateTomorrow, tasks, context);
 
@@ -128,22 +128,25 @@ public class SaveListActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void handleDateTasks(int taskDate, int taskDateTomorrow, Tasks tasks, Context context) {
-        String time = String.valueOf(tasks.task_time) + "0 น.";
+    private void handleDateTasks(String taskDate, String taskDateTomorrow, Tasks tasks, Context context) {
+        double taskTime = Double.parseDouble(tasks.task_time);
 
-        if (taskDate == tasks.task_date) {
+        if (taskDate.equals(tasks.task_date)) {
             taskTypeTextView.setText(R.string.today);
             taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_green_today));
 
-            if (tasks.task_time <= 12) {
+            if (taskTime <= 12) {
                 taskTypeTextView.setText(R.string.express);
                 taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_red_express));
             }
         }
-        if (taskDateTomorrow == tasks.task_date) {
+        if (taskDateTomorrow.equals(tasks.task_date)) {
             taskTypeTextView.setText(R.string.tomorrow);
             taskTypeTextView.setBackgroundColor(context.getColor(R.color.color_yellow_tomorrow));
         }
+
+        String time = tasks.task_time + " น.";
+
         taskTimeTextView.setText(time);
 
         taskAddressCollectTextView.setPaintFlags(taskAddressCollectTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -158,11 +161,17 @@ public class SaveListActivity extends AppCompatActivity {
     }
 
     private void setClickNavigation(final Tasks tasks) {
+        final double tasksLatCollect = Double.parseDouble(tasks.task_latitude_collect);
+        final double tasksLongCollect = Double.parseDouble(tasks.task_longitude_collect);
+
+        final double tasksLatDeliver = Double.parseDouble(tasks.task_latitude_deliver);
+        final double tasksLongDeliver = Double.parseDouble(tasks.task_longitude_deliver);
+
         taskAddressCollectTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri intentCollectUri = Uri.parse("google.navigation:q=" + tasks.task_latitude_collect + "," +
-                        tasks.task_longitude_collect + "&mod=d&avoid=thf");
+                Uri intentCollectUri = Uri.parse("google.navigation:q=" + tasksLatCollect + "," +
+                        tasksLongCollect + "&mod=d&avoid=thf");
                 Intent intent = new Intent(Intent.ACTION_VIEW, intentCollectUri);
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);
@@ -171,8 +180,8 @@ public class SaveListActivity extends AppCompatActivity {
         taskAddressDeliverTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri intentDeliverUri = Uri.parse("google.navigation:q=" + tasks.task_latitude_deliver + "," +
-                        tasks.task_longitude_deliver + "&mod=d&avoid=thf");
+                Uri intentDeliverUri = Uri.parse("google.navigation:q=" + tasksLatDeliver + "," +
+                        tasksLongDeliver + "&mod=d&avoid=thf");
                 Intent intent = new Intent(Intent.ACTION_VIEW, intentDeliverUri);
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);
