@@ -36,7 +36,7 @@
     </string-array>
     <string name="ok">ตกลง</string>
     <string name="call">โทร\u00A0</string>
-    <string name="loading_list_fail">โหลดรายการล้มเลว</string>
+    <string name="loading_list_fail">โหลดรายการล้มเหลว</string>
     <string name="fail_load_task">โหลดงานล้มเหลว</string>
     <string name="address">ที่อยู่\u00A0</string>
     <string name="express">ด่วน</string>
@@ -49,7 +49,7 @@
     <string name="transport_confirmation">ยืนยันการจัดส่ง</string>
     <string name="you_are_here">คุณอยู่นี้</string>
     <string name="complete_location">ที่ตั้งนี้ได้รับการจัดส่งเสร็จสิ้นแล้ว</string>
-    <string name="location_completed">ที่ตั้งเสร๋จสิ้น</string>
+    <string name="location_completed">ที่ตั้งเสร็จสิ้น</string>
     <string name="transport_unsuccessful">รายการการจัดส่งไม่สำเร็จ</string>
     <string name="unsuccessful_transport">บันทึกรายการการจัดส่งไม่สำเร็จ เนื่องจากที่ตั้งการขนส่งยังไม่เสร็จสิ้น</string>
 

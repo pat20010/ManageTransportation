@@ -20,8 +20,7 @@
     <string name="contact">Contact</string>
     <string name="me">Me</string>
     <string name="task_list">TaskList</string>
-
-    <string name="name" translatable="false">Thanapon Jaisanuk</string>
+    <string name="image">Image profile</string>
 
     <string name="dates_task" translatable="false">Dates Task</string>
     <string name="call">Call\u00A0</string>
