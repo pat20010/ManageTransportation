@@ -34,76 +34,77 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar_me"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="31dp"
+        android:contentDescription="@string/image"
         android:src="@drawable/ic_round_account_me" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/account_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/account_image_view"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="25dp"
         android:layout_toEndOf="@+id/account_image_view"
         android:layout_toRightOf="@+id/account_image_view"
-        android:text="@string/name"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        tools:text="name" />
 
     <TextView
-        android:id="@+id/account_email"
+        android:id="@+id/account_email_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/account_image_view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
-        android:text="E-mail :    admin@admin.com"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:text="email" />
 
     <TextView
-        android:id="@+id/account_sex"
+        android:id="@+id/account_gender_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/account_email"
-        android:layout_alignStart="@+id/account_email"
-        android:layout_below="@+id/account_email"
+        android:layout_alignLeft="@+id/account_email_text_view"
+        android:layout_alignStart="@+id/account_email_text_view"
+        android:layout_below="@+id/account_email_text_view"
         android:layout_marginTop="20dp"
-        android:text="Gender :   Male"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:text="gender" />
 
     <TextView
-        android:id="@+id/account_age"
+        android:id="@+id/account_age_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/account_email"
-        android:layout_alignStart="@+id/account_email"
-        android:layout_below="@+id/account_sex"
+        android:layout_alignLeft="@+id/account_email_text_view"
+        android:layout_alignStart="@+id/account_email_text_view"
+        android:layout_below="@+id/account_gender_text_view"
         android:layout_marginTop="20dp"
-        android:text="Age :         25"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:text="age" />
 
     <TextView
-        android:id="@+id/account_address"
+        android:id="@+id/account_address_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/account_age"
-        android:layout_alignStart="@+id/account_age"
-        android:layout_below="@+id/account_age"
+        android:layout_alignLeft="@+id/account_age_text_view"
+        android:layout_alignStart="@+id/account_age_text_view"
+        android:layout_below="@+id/account_age_text_view"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:text="Address :  5 ถ.แจ้งวัฒนะ แขวงอนุสาวรีย์ เขตบางเขน จังหวัดกรุงเทพ 10220"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:text="address" />
 
     <TextView
-        android:id="@+id/account_tel"
+        android:id="@+id/account_phone_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/account_address"
-        android:layout_alignStart="@+id/account_address"
-        android:layout_below="@+id/account_address"
+        android:layout_alignLeft="@+id/account_address_text_view"
+        android:layout_alignStart="@+id/account_address_text_view"
+        android:layout_below="@+id/account_address_text_view"
         android:layout_marginTop="20dp"
-        android:text="Phone :    085-553-5526"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:text="phone" />
 
     <Button
         android:id="@+id/sign_out_button"
@@ -112,6 +113,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="9dp"
         android:background="@color/colorPrimary"

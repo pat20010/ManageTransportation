@@ -18,4 +18,5 @@
     <string name="map">แผนที่</string>
     <string name="me">ฉัน</string>
     <string name="task_list">รายการงาน</string>
+    <string name="loading_list_fail">โหลดรายการล้มเหลว</string>
 </resources>
