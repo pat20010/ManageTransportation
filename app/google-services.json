@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "78712223831",
+    "firebase_url": "https://managetransportation-bf872.firebaseio.com",
+    "project_id": "managetransportation-bf872",
+    "storage_bucket": "managetransportation-bf872.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78712223831:android:e492f8b0d9b695bb",
+        "android_client_info": {
+          "package_name": "com.project_develop_team.managetransportation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78712223831-mq25l3m6rp7a6ano384ekh147vvkvv9a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLmbKoKncuResfseu2hTmWbdEzFol16Fo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ManageTransportation</string>
+    <string name="meter">\u00A0เมตร</string>
+    <string name="kilometer">\u00A0กม.</string>
+
+    <string name="enter_password">กรุณาใส่รหัสผ่าน!</string>
+    <string name="enter_username">กรุณาใส่ชื่อผู้ใช้!</string>
+    <string name="internet_connect_fail">ไม่สามารถเข้าสู่ระบบได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ</string>
+    <string name="loading">กรุณารอสักครู่. . .</string>
+    <string name="location_fail">ไม่สามารถเชื่อมต่อไปยังตำแหน่งที่อยู่ได้ โปรดตรวจสอบการเปิดใช้งานตำแหน่ง</string>
+    <string name="login">เข้าสู่ระบบ</string>
+    <string name="login_fail">เข้าสู่ระบบล้มเหลว</string>
+    <string name="login_incorrect">เข้าสู่ระบบไม่ถูกต้อง</string>
+    <string name="no_google_play">ไม่ได้ติดตั้ง Google Play</string>
+    <string name="not_connect_google_play">การเชื่อมต่อ Google Play ล้มเหลว</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="save">บันทึก</string>
+    <string name="save_list">บันทึกรายการ</string>
+    <string name="sign_in">ลงชื่อเข้าใช้</string>
+    <string name="sign_out">ออกจากระบบ</string>
+    <string name="user_login_fail">ชื่อผู้ใช้หรือรหัสผ่านที่คุณป้อนไม่ถูกต้อง โปรดลองอีกครั้ง</string>
+    <string name="username">ชื่อผู้ใช้@transportation.com</string>
+    <string name="contact">ติดต่อ</string>
+    <string name="list">รายการ</string>
+    <string name="map">แผนที่</string>
+    <string name="me">ฉัน</string>
+    <string name="task_list">รายการงาน</string>
+
+    <string-array name="tab_headings">
+        <item>ทั้งหมด</item>
+        <item>วันนี้</item>
+        <item>ด่วน</item>
+        <item>พรุ่งนี้</item>
+        <item>เสร็จสิ้น</item>
+    </string-array>
+    <string name="ok">ตกลง</string>
+    <string name="call">โทร\u00A0</string>
+    <string name="loading_list_fail">โหลดรายการล้มเหลว</string>
+    <string name="fail_load_task">โหลดงานล้มเหลว</string>
+    <string name="address">ที่อยู่\u00A0</string>
+    <string name="express">ด่วน</string>
+    <string name="today">วันนี้</string>
+    <string name="tomorrow">พรุ่งนี้</string>
+    <string name="transport_completed">การจัดส่งเสร็จสิ้น</string>
+    <string name="complete_transport">บันทึกรายการการจัดส่งเสร็จสิ้น</string>
+    <string name="complete">เสร็จสิ้น</string>
+    <string name="record_transport">คุณต้องการที่จะบันทึกรายการการจัดส่งหรือไม่</string>
+    <string name="transport_confirmation">ยืนยันการจัดส่ง</string>
+    <string name="you_are_here">คุณอยู่นี้</string>
+    <string name="complete_location">ที่ตั้งนี้ได้รับการจัดส่งเสร็จสิ้นแล้ว</string>
+    <string name="location_completed">ที่ตั้งเสร็จสิ้น</string>
+    <string name="transport_unsuccessful">รายการการจัดส่งไม่สำเร็จ</string>
+    <string name="unsuccessful_transport">บันทึกรายการการจัดส่งไม่สำเร็จ เนื่องจากที่ตั้งการขนส่งยังไม่เสร็จสิ้น</string>
+
+    <string name="not_available">ยังไม่พร้อมใช้งาน</string>
+    <string name="send_mail">ส่งอีเมล์</string>
+</resources>

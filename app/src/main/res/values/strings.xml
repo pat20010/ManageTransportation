@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">ManageTransportation</string>
+
+    <string name="username">Username@transportation.com</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="enter_username">Enter username please!</string>
+    <string name="enter_password">Enter password please!</string>
+    <string name="user_login_fail">The username or password you entered is incorrect. Try again please.</string>
+    <string name="internet_connect_fail">Unable to login Please check your Internet connection.</string>
+    <string name="login_incorrect">Login incorrect!</string>
+    <string name="login_fail">Login failure!</string>
+    <string name="loading">Loading. . .</string>
+    <string name="loading_list_fail">Loading list failed!</string>
+
+    <string name="list">List</string>
+    <string name="map">Map</string>
+    <string name="contact">Contact</string>
+    <string name="me">Me</string>
+    <string name="task_list">TaskList</string>
+    <string name="image">Image profile</string>
+
+    <string name="dates_task" translatable="false">Dates Task</string>
+    <string name="call">Call\u00A0</string>
+    <string name="address">Address\u00A0</string>
+    <string name="date_format" translatable="false">EEEE d MMMM</string>
+    <string name="date_tasks_format" translatable="false">yyyy-MM-dd</string>
+
+    <string name="complete_transport">Record of transport completed.</string>
+    <string name="transport_completed">Transport Completed</string>
+    <string name="record_transport">Do you want to record the transport?</string>
+    <string name="transport_confirmation">Transport Confirmation"</string>
+    <string name="location_completed">Location Completed</string>
+    <string name="complete_location">This location has been successfully transport.</string>
+    <string name="transport_unsuccessful">Transport Unsuccessful</string>
+    <string name="unsuccessful_transport">Record of transport unsuccessful, because the location is not yet complete.</string>
+    <string-array name="tab_headings">
+        <item>All</item>
+        <item>Today</item>
+        <item>Express</item>
+        <item>Tomorrow</item>
+        <item>Complete</item>
+    </string-array>
+
+    <string name="transport_success" translatable="false">เสร็จเรียบร้อย</string>
+    <string name="dot" translatable="false">.</string>
+    <string name="fail_load_task">Fail load task</string>
+    <string name="empty" translatable="false">\u00A0</string>
+    <string name="today">Today</string>
+    <string name="express">Express</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="complete">Complete</string>
+
+    <string name="save_list">SaveList</string>
+    <string name="save">Save</string>
+    <string name="ok">OK</string>
+
+    <string name="no_google_play">Not installed Google Play!</string>
+    <string name="not_connect_google_play">Connection Google Play fail!</string>
+    <string name="server_key" translatable="false">AIzaSyDK9lA1T5JogUKexBmbv0oP5fpKd3t5m84</string>
+    <string name="location_fail">Can not connect to the Location. Check the Enable Location.</string>
+    <string name="you_are_here">You are here</string>
+
+    <string name="meter">\u00A0m</string>
+    <string name="kilometer">\u00A0km</string>
+
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="contact_fragment" translatable="false">Contact Fragment</string>
+    <string name="phone" translatable="false">phone</string>
+
+    <string name="firebase_users_tasks" translatable="false">users_tasks</string>
+    <string name="firebase_tasks" translatable="false">tasks</string>
+    <string name="firebase_users" translatable="false">users</string>
+    <string name="firebase_status" translatable="false">status</string>
+    <string name="firebase_latitude" translatable="false">latitude</string>
+    <string name="firebase_longitude" translatable="false">longitude</string>
+    <string name="firebase_task_distance" translatable="false">task_distance</string>
+    <string name="firebase_task_average" translatable="false">task_average</string>
+    <string name="firebase_latitude_collect" translatable="false">task_latitude_collect</string>
+    <string name="firebase_longitude_collect" translatable="false">task_longitude_collect</string>
+
+    <string name="not_available">Not available</string>
+    <string name="email_address" translatable="false">managetransportation56@gmail.com</string>
+    <string name="mail_type" translatable="false">text/email</string>
+    <string name="send_mail">Send email with</string>
+    <string name="tel" translatable="false">tel:</string>
+
+    <string name="firebase_contact" translatable="false">contact</string>
+    <string name="firebase_call" translatable="false">call</string>
+</resources>
