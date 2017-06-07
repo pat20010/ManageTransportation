@@ -13,6 +13,7 @@
     <string name="login_incorrect">Login incorrect!</string>
     <string name="login_fail">Login failure!</string>
     <string name="loading">Loading. . .</string>
+    <string name="loading_list_fail">Loading list failed!</string>
 
     <string name="list">List</string>
     <string name="map">Map</string>
@@ -45,7 +46,6 @@
     </string-array>
 
     <string name="transport_success" translatable="false">เสร็จเรียบร้อย</string>
-    <string name="loading_list_fail">Loading list failed!</string>
     <string name="dot" translatable="false">.</string>
     <string name="fail_load_task">Fail load task</string>
     <string name="empty" translatable="false">\u00A0</string>
@@ -81,4 +81,13 @@
     <string name="firebase_task_average" translatable="false">task_average</string>
     <string name="firebase_latitude_collect" translatable="false">task_latitude_collect</string>
     <string name="firebase_longitude_collect" translatable="false">task_longitude_collect</string>
+
+    <string name="not_available">Not available</string>
+    <string name="email_address" translatable="false">managetransportation56@gmail.com</string>
+    <string name="mail_type" translatable="false">text/email</string>
+    <string name="send_mail">Send email with</string>
+    <string name="tel" translatable="false">tel:</string>
+
+    <string name="firebase_contact" translatable="false">contact</string>
+    <string name="firebase_call" translatable="false">call</string>
 </resources>

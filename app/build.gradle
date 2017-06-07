@@ -3,7 +3,7 @@ apply plugin: 'android-apt'
 
 ext {
     supportLibrary = '25.3.1'
-    firebaseLibrary = '10.2.4'
+    firebaseLibrary = '10.2.6'
 }
 android {
     compileSdkVersion 25

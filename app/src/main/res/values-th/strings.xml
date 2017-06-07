@@ -52,4 +52,7 @@
     <string name="location_completed">ที่ตั้งเสร๋จสิ้น</string>
     <string name="transport_unsuccessful">รายการการจัดส่งไม่สำเร็จ</string>
     <string name="unsuccessful_transport">บันทึกรายการการจัดส่งไม่สำเร็จ เนื่องจากที่ตั้งการขนส่งยังไม่เสร็จสิ้น</string>
+
+    <string name="not_available">ยังไม่พร้อมใช้งาน</string>
+    <string name="send_mail">ส่งอีเมล์</string>
 </resources>
