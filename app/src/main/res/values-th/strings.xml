@@ -19,4 +19,6 @@
     <string name="me">ฉัน</string>
     <string name="task_list">รายการงาน</string>
     <string name="not_available">ยังไม่พร้อมใช้งาน</string>
+    <string name="send_mail">ส่งอีเมล์</string>
+    <string name="loading_list_fail">โหลดรายการล้มเหลว</string>
 </resources>
