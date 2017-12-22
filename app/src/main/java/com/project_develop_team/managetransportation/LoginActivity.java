@@ -118,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
 
+		//Alert Dialog
         if (isNetworkAvailable()) {
             builder.setTitle(R.string.login_fail);
             builder.setMessage(R.string.internet_connect_fail);
