@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         final String password = passwordEditText.getText().toString().trim();
 
         if (validateForm(username, password)) {
-			//Call progressDialog
             showProgressDialog();
 
             auth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
